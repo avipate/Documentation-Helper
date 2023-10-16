@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain_experimental API Reference &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain_experimental API Reference &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/experimental_api_reference.html" />
 
@@ -24,30 +24,11 @@
   <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
 <script src="_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "experimental_api_reference", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -101,82 +82,103 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
               <ul>
 <li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">langchain_experimental</span></code> API Reference</a><ul>
-<li><a class="reference internal" href="#module-langchain_experimental.autonomous_agents"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.autonomous_agents</span></code></a><ul>
-<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#module-langchain_experimental.agents"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.agents</span></code></a><ul>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-langchain_experimental.comprehend_moderation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.comprehend_moderation</span></code></a><ul>
-<li><a class="reference internal" href="#id1">Classes</a></li>
+<li><a class="reference internal" href="#module-langchain_experimental.autonomous_agents"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.autonomous_agents</span></code></a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#id1">Functions</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-langchain_experimental.cpal"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.cpal</span></code></a><ul>
+<li><a class="reference internal" href="#module-langchain_experimental.comprehend_moderation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.comprehend_moderation</span></code></a><ul>
 <li><a class="reference internal" href="#id2">Classes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#langchain-experimental-data-anonymizer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.data_anonymizer</span></code></a><ul>
+<li><a class="reference internal" href="#module-langchain_experimental.cpal"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.cpal</span></code></a><ul>
 <li><a class="reference internal" href="#id3">Classes</a></li>
-<li><a class="reference internal" href="#id4">Functions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-langchain_experimental.fallacy_removal"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.fallacy_removal</span></code></a><ul>
-<li><a class="reference internal" href="#id5">Classes</a></li>
+<li><a class="reference internal" href="#id4">Classes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-langchain_experimental.generative_agents"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.generative_agents</span></code></a><ul>
-<li><a class="reference internal" href="#id6">Classes</a></li>
+<li><a class="reference internal" href="#id5">Classes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-langchain_experimental.graph_transformers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.graph_transformers</span></code></a><ul>
-<li><a class="reference internal" href="#id7">Classes</a></li>
-<li><a class="reference internal" href="#id8">Functions</a></li>
+<li><a class="reference internal" href="#id6">Classes</a></li>
+<li><a class="reference internal" href="#id7">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-langchain_experimental.llm_bash"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.llm_bash</span></code></a><ul>
+<li><a class="reference internal" href="#id8">Classes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-langchain_experimental.llm_symbolic_math"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.llm_symbolic_math</span></code></a><ul>
+<li><a class="reference internal" href="#id9">Classes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-langchain_experimental.llms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.llms</span></code></a><ul>
-<li><a class="reference internal" href="#id9">Classes</a></li>
-<li><a class="reference internal" href="#id10">Functions</a></li>
+<li><a class="reference internal" href="#id10">Classes</a></li>
+<li><a class="reference internal" href="#id11">Functions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-langchain_experimental.pal_chain"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.pal_chain</span></code></a><ul>
-<li><a class="reference internal" href="#id11">Classes</a></li>
+<li><a class="reference internal" href="#id12">Classes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-langchain_experimental.plan_and_execute"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.plan_and_execute</span></code></a><ul>
-<li><a class="reference internal" href="#id12">Classes</a></li>
-<li><a class="reference internal" href="#id13">Functions</a></li>
+<li><a class="reference internal" href="#id13">Classes</a></li>
+<li><a class="reference internal" href="#id14">Functions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-langchain_experimental.prompt_injection_identifier"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.prompt_injection_identifier</span></code></a><ul>
-<li><a class="reference internal" href="#id14">Classes</a></li>
-<li><a class="reference internal" href="#id15">Functions</a></li>
+<li><a class="reference internal" href="#id15">Classes</a></li>
+<li><a class="reference internal" href="#id16">Functions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-langchain_experimental.retrievers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.retrievers</span></code></a><ul>
-<li><a class="reference internal" href="#id16">Classes</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-langchain_experimental.smart_llm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.smart_llm</span></code></a><ul>
 <li><a class="reference internal" href="#id17">Classes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-langchain_experimental.sql"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.sql</span></code></a><ul>
+<li><a class="reference internal" href="#module-langchain_experimental.rl_chain"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.rl_chain</span></code></a><ul>
 <li><a class="reference internal" href="#id18">Classes</a></li>
 <li><a class="reference internal" href="#id19">Functions</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-langchain_experimental.tabular_synthetic_data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.tabular_synthetic_data</span></code></a><ul>
+<li><a class="reference internal" href="#module-langchain_experimental.smart_llm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.smart_llm</span></code></a><ul>
 <li><a class="reference internal" href="#id20">Classes</a></li>
-<li><a class="reference internal" href="#id21">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-langchain_experimental.sql"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.sql</span></code></a><ul>
+<li><a class="reference internal" href="#id21">Classes</a></li>
+<li><a class="reference internal" href="#id22">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-langchain_experimental.tabular_synthetic_data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.tabular_synthetic_data</span></code></a><ul>
+<li><a class="reference internal" href="#id23">Classes</a></li>
+<li><a class="reference internal" href="#id24">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-langchain_experimental.tools"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.tools</span></code></a><ul>
+<li><a class="reference internal" href="#id25">Classes</a></li>
+<li><a class="reference internal" href="#id26">Functions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-langchain_experimental.tot"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.tot</span></code></a><ul>
-<li><a class="reference internal" href="#id22">Classes</a></li>
+<li><a class="reference internal" href="#id27">Classes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-langchain_experimental.utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.utilities</span></code></a><ul>
+<li><a class="reference internal" href="#id28">Classes</a></li>
 </ul>
 </li>
 </ul>
@@ -191,6 +193,32 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         
   <section id="langchain-experimental-api-reference">
 <span id="experimental-api-reference"></span><h1><code class="docutils literal notranslate"><span class="pre">langchain_experimental</span></code> API Reference<a class="headerlink" href="#langchain-experimental-api-reference" title="Permalink to this headline">¶</a></h1>
+<section id="module-langchain_experimental.agents">
+<span id="langchain-experimental-agents"></span><h2><a class="reference internal" href="#module-langchain_experimental.agents" title="langchain_experimental.agents"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.agents</span></code></a><a class="headerlink" href="#module-langchain_experimental.agents" title="Permalink to this headline">¶</a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="agents/langchain_experimental.agents.agent_toolkits.pandas.base.create_pandas_dataframe_agent.html#langchain_experimental.agents.agent_toolkits.pandas.base.create_pandas_dataframe_agent" title="langchain_experimental.agents.agent_toolkits.pandas.base.create_pandas_dataframe_agent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">agents.agent_toolkits.pandas.base.create_pandas_dataframe_agent</span></code></a>(llm, df)</p></td>
+<td><p>Construct a pandas agent from an LLM and dataframe.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="agents/langchain_experimental.agents.agent_toolkits.python.base.create_python_agent.html#langchain_experimental.agents.agent_toolkits.python.base.create_python_agent" title="langchain_experimental.agents.agent_toolkits.python.base.create_python_agent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">agents.agent_toolkits.python.base.create_python_agent</span></code></a>(...)</p></td>
+<td><p>Construct a python agent from an LLM and tool.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="agents/langchain_experimental.agents.agent_toolkits.spark.base.create_spark_dataframe_agent.html#langchain_experimental.agents.agent_toolkits.spark.base.create_spark_dataframe_agent" title="langchain_experimental.agents.agent_toolkits.spark.base.create_spark_dataframe_agent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">agents.agent_toolkits.spark.base.create_spark_dataframe_agent</span></code></a>(llm, df)</p></td>
+<td><p>Construct a Spark agent from an LLM and dataframe.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="agents/langchain_experimental.agents.agent_toolkits.xorbits.base.create_xorbits_agent.html#langchain_experimental.agents.agent_toolkits.xorbits.base.create_xorbits_agent" title="langchain_experimental.agents.agent_toolkits.xorbits.base.create_xorbits_agent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">agents.agent_toolkits.xorbits.base.create_xorbits_agent</span></code></a>(...)</p></td>
+<td><p>Construct a xorbits agent from an LLM and dataframe.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 <section id="module-langchain_experimental.autonomous_agents">
 <span id="langchain-experimental-autonomous-agents"></span><h2><a class="reference internal" href="#module-langchain_experimental.autonomous_agents" title="langchain_experimental.autonomous_agents"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.autonomous_agents</span></code></a><a class="headerlink" href="#module-langchain_experimental.autonomous_agents" title="Permalink to this headline">¶</a></h2>
 <section id="classes">
@@ -270,8 +298,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </tbody>
 </table>
 </section>
-<section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<section id="id1">
+<h3>Functions<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -296,8 +324,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </section>
 <section id="module-langchain_experimental.comprehend_moderation">
 <span id="langchain-experimental-comprehend-moderation"></span><h2><a class="reference internal" href="#module-langchain_experimental.comprehend_moderation" title="langchain_experimental.comprehend_moderation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.comprehend_moderation</span></code></a><a class="headerlink" href="#module-langchain_experimental.comprehend_moderation" title="Permalink to this headline">¶</a></h2>
-<section id="id1">
-<h3>Classes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<section id="id2">
+<h3>Classes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -349,8 +377,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </section>
 <section id="module-langchain_experimental.cpal">
 <span id="langchain-experimental-cpal"></span><h2><a class="reference internal" href="#module-langchain_experimental.cpal" title="langchain_experimental.cpal"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.cpal</span></code></a><a class="headerlink" href="#module-langchain_experimental.cpal" title="Permalink to this headline">¶</a></h2>
-<section id="id2">
-<h3>Classes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<section id="id3">
+<h3>Classes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -364,48 +392,11 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </table>
 </section>
 </section>
-<section id="langchain-experimental-data-anonymizer">
-<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.data_anonymizer</span></code><a class="headerlink" href="#langchain-experimental-data-anonymizer" title="Permalink to this headline">¶</a></h2>
-<section id="id3">
-<h3>Classes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="data_anonymizer/langchain_experimental.data_anonymizer.base.AnonymizerBase.html#langchain_experimental.data_anonymizer.base.AnonymizerBase" title="langchain_experimental.data_anonymizer.base.AnonymizerBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_anonymizer.base.AnonymizerBase</span></code></a>()</p></td>
-<td><p>Base abstract class for anonymizers. It is public and non-virtual because it allows     wrapping the behavior for all methods in a base class.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="data_anonymizer/langchain_experimental.data_anonymizer.base.ReversibleAnonymizerBase.html#langchain_experimental.data_anonymizer.base.ReversibleAnonymizerBase" title="langchain_experimental.data_anonymizer.base.ReversibleAnonymizerBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_anonymizer.base.ReversibleAnonymizerBase</span></code></a>()</p></td>
-<td><p>Base abstract class for reversible anonymizers.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="data_anonymizer/langchain_experimental.data_anonymizer.deanonymizer_mapping.DeanonymizerMapping.html#langchain_experimental.data_anonymizer.deanonymizer_mapping.DeanonymizerMapping" title="langchain_experimental.data_anonymizer.deanonymizer_mapping.DeanonymizerMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_anonymizer.deanonymizer_mapping.DeanonymizerMapping</span></code></a>(...)</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="id4">
-<h3>Functions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="data_anonymizer/langchain_experimental.data_anonymizer.faker_presidio_mapping.get_pseudoanonymizer_mapping.html#langchain_experimental.data_anonymizer.faker_presidio_mapping.get_pseudoanonymizer_mapping" title="langchain_experimental.data_anonymizer.faker_presidio_mapping.get_pseudoanonymizer_mapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_anonymizer.faker_presidio_mapping.get_pseudoanonymizer_mapping</span></code></a>([seed])</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
 <section id="module-langchain_experimental.fallacy_removal">
 <span id="langchain-experimental-fallacy-removal"></span><h2><a class="reference internal" href="#module-langchain_experimental.fallacy_removal" title="langchain_experimental.fallacy_removal"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.fallacy_removal</span></code></a><a class="headerlink" href="#module-langchain_experimental.fallacy_removal" title="Permalink to this headline">¶</a></h2>
 <p>The Chain runs a self-review of logical fallacies as determined by this paper  categorizing and defining logical fallacies <a class="reference external" href="https://arxiv.org/pdf/2212.07425.pdf">https://arxiv.org/pdf/2212.07425.pdf</a>. Modeled after Constitutional AI and in same format, but applying logical fallacies as generalized rules to remove in output</p>
-<section id="id5">
-<h3>Classes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<section id="id4">
+<h3>Classes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -425,8 +416,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <section id="module-langchain_experimental.generative_agents">
 <span id="langchain-experimental-generative-agents"></span><h2><a class="reference internal" href="#module-langchain_experimental.generative_agents" title="langchain_experimental.generative_agents"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.generative_agents</span></code></a><a class="headerlink" href="#module-langchain_experimental.generative_agents" title="Permalink to this headline">¶</a></h2>
 <p>Generative Agents primitives.</p>
-<section id="id6">
-<h3>Classes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<section id="id5">
+<h3>Classes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -445,8 +436,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </section>
 <section id="module-langchain_experimental.graph_transformers">
 <span id="langchain-experimental-graph-transformers"></span><h2><a class="reference internal" href="#module-langchain_experimental.graph_transformers" title="langchain_experimental.graph_transformers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.graph_transformers</span></code></a><a class="headerlink" href="#module-langchain_experimental.graph_transformers" title="Permalink to this headline">¶</a></h2>
-<section id="id7">
-<h3>Classes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<section id="id6">
+<h3>Classes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -465,8 +456,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </tbody>
 </table>
 </section>
-<section id="id8">
-<h3>Functions<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<section id="id7">
+<h3>Functions<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -480,11 +471,54 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </table>
 </section>
 </section>
+<section id="module-langchain_experimental.llm_bash">
+<span id="langchain-experimental-llm-bash"></span><h2><a class="reference internal" href="#module-langchain_experimental.llm_bash" title="langchain_experimental.llm_bash"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.llm_bash</span></code></a><a class="headerlink" href="#module-langchain_experimental.llm_bash" title="Permalink to this headline">¶</a></h2>
+<p>Chain that interprets a prompt and executes bash code to perform bash operations.</p>
+<section id="id8">
+<h3>Classes<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="llm_bash/langchain_experimental.llm_bash.base.LLMBashChain.html#langchain_experimental.llm_bash.base.LLMBashChain" title="langchain_experimental.llm_bash.base.LLMBashChain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">llm_bash.base.LLMBashChain</span></code></a></p></td>
+<td><p>Chain that interprets a prompt and executes bash operations.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="llm_bash/langchain_experimental.llm_bash.bash.BashProcess.html#langchain_experimental.llm_bash.bash.BashProcess" title="langchain_experimental.llm_bash.bash.BashProcess"><code class="xref py py-obj docutils literal notranslate"><span class="pre">llm_bash.bash.BashProcess</span></code></a>([strip_newlines, ...])</p></td>
+<td><p>Wrapper class for starting subprocesses.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="llm_bash/langchain_experimental.llm_bash.prompt.BashOutputParser.html#langchain_experimental.llm_bash.prompt.BashOutputParser" title="langchain_experimental.llm_bash.prompt.BashOutputParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">llm_bash.prompt.BashOutputParser</span></code></a></p></td>
+<td><p>Parser for bash output.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="module-langchain_experimental.llm_symbolic_math">
+<span id="langchain-experimental-llm-symbolic-math"></span><h2><a class="reference internal" href="#module-langchain_experimental.llm_symbolic_math" title="langchain_experimental.llm_symbolic_math"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.llm_symbolic_math</span></code></a><a class="headerlink" href="#module-langchain_experimental.llm_symbolic_math" title="Permalink to this headline">¶</a></h2>
+<p>Chain that interprets a prompt and executes python code to do math.</p>
+<p>Heavily borrowed from llm_math, wrapper for SymPy</p>
+<section id="id9">
+<h3>Classes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="llm_symbolic_math/langchain_experimental.llm_symbolic_math.base.LLMSymbolicMathChain.html#langchain_experimental.llm_symbolic_math.base.LLMSymbolicMathChain" title="langchain_experimental.llm_symbolic_math.base.LLMSymbolicMathChain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">llm_symbolic_math.base.LLMSymbolicMathChain</span></code></a></p></td>
+<td><p>Chain that interprets a prompt and executes python code to do symbolic math.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 <section id="module-langchain_experimental.llms">
 <span id="langchain-experimental-llms"></span><h2><a class="reference internal" href="#module-langchain_experimental.llms" title="langchain_experimental.llms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.llms</span></code></a><a class="headerlink" href="#module-langchain_experimental.llms" title="Permalink to this headline">¶</a></h2>
 <p>Experimental LLM wrappers.</p>
-<section id="id9">
-<h3>Classes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<section id="id10">
+<h3>Classes<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -509,8 +543,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </tbody>
 </table>
 </section>
-<section id="id10">
-<h3>Functions<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<section id="id11">
+<h3>Functions<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -532,9 +566,9 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <p>Implements Program-Aided Language Models.</p>
 <p>As in <a class="reference external" href="https://arxiv.org/pdf/2211.10435.pdf">https://arxiv.org/pdf/2211.10435.pdf</a>.</p>
 <p>This is vulnerable to arbitrary code execution:
-<a class="reference external" href="https://github.com/hwchase17/langchain/issues/5872">https://github.com/hwchase17/langchain/issues/5872</a></p>
-<section id="id11">
-<h3>Classes<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<a class="reference external" href="https://github.com/langchain-ai/langchain/issues/5872">https://github.com/langchain-ai/langchain/issues/5872</a></p>
+<section id="id12">
+<h3>Classes<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -553,8 +587,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </section>
 <section id="module-langchain_experimental.plan_and_execute">
 <span id="langchain-experimental-plan-and-execute"></span><h2><a class="reference internal" href="#module-langchain_experimental.plan_and_execute" title="langchain_experimental.plan_and_execute"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.plan_and_execute</span></code></a><a class="headerlink" href="#module-langchain_experimental.plan_and_execute" title="Permalink to this headline">¶</a></h2>
-<section id="id12">
-<h3>Classes<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<section id="id13">
+<h3>Classes<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -600,8 +634,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </tbody>
 </table>
 </section>
-<section id="id13">
-<h3>Functions<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<section id="id14">
+<h3>Functions<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -621,8 +655,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <section id="module-langchain_experimental.prompt_injection_identifier">
 <span id="langchain-experimental-prompt-injection-identifier"></span><h2><a class="reference internal" href="#module-langchain_experimental.prompt_injection_identifier" title="langchain_experimental.prompt_injection_identifier"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.prompt_injection_identifier</span></code></a><a class="headerlink" href="#module-langchain_experimental.prompt_injection_identifier" title="Permalink to this headline">¶</a></h2>
 <p>HuggingFace Security toolkit.</p>
-<section id="id14">
-<h3>Classes<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<section id="id15">
+<h3>Classes<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -635,8 +669,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </tbody>
 </table>
 </section>
-<section id="id15">
-<h3>Functions<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<section id="id16">
+<h3>Functions<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -649,8 +683,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </section>
 <section id="module-langchain_experimental.retrievers">
 <span id="langchain-experimental-retrievers"></span><h2><a class="reference internal" href="#module-langchain_experimental.retrievers" title="langchain_experimental.retrievers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.retrievers</span></code></a><a class="headerlink" href="#module-langchain_experimental.retrievers" title="Permalink to this headline">¶</a></h2>
-<section id="id16">
-<h3>Classes<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<section id="id17">
+<h3>Classes<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -664,11 +698,126 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </table>
 </section>
 </section>
+<section id="module-langchain_experimental.rl_chain">
+<span id="langchain-experimental-rl-chain"></span><h2><a class="reference internal" href="#module-langchain_experimental.rl_chain" title="langchain_experimental.rl_chain"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.rl_chain</span></code></a><a class="headerlink" href="#module-langchain_experimental.rl_chain" title="Permalink to this headline">¶</a></h2>
+<section id="id18">
+<h3>Classes<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.AutoSelectionScorer.html#langchain_experimental.rl_chain.base.AutoSelectionScorer" title="langchain_experimental.rl_chain.base.AutoSelectionScorer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.AutoSelectionScorer</span></code></a></p></td>
+<td><p>Create a new model by parsing and validating input data from keyword arguments.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.Embedder.html#langchain_experimental.rl_chain.base.Embedder" title="langchain_experimental.rl_chain.base.Embedder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.Embedder</span></code></a>(*args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.Event.html#langchain_experimental.rl_chain.base.Event" title="langchain_experimental.rl_chain.base.Event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.Event</span></code></a>(inputs[, selected])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.Policy.html#langchain_experimental.rl_chain.base.Policy" title="langchain_experimental.rl_chain.base.Policy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.Policy</span></code></a>(**kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.RLChain.html#langchain_experimental.rl_chain.base.RLChain" title="langchain_experimental.rl_chain.base.RLChain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.RLChain</span></code></a></p></td>
+<td><p>The <cite>RLChain</cite> class leverages the Vowpal Wabbit (VW) model as a learned policy for reinforcement learning.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.Selected.html#langchain_experimental.rl_chain.base.Selected" title="langchain_experimental.rl_chain.base.Selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.Selected</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.SelectionScorer.html#langchain_experimental.rl_chain.base.SelectionScorer" title="langchain_experimental.rl_chain.base.SelectionScorer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.SelectionScorer</span></code></a></p></td>
+<td><p>Abstract method to grade the chosen selection or the response of the llm</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.VwPolicy.html#langchain_experimental.rl_chain.base.VwPolicy" title="langchain_experimental.rl_chain.base.VwPolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.VwPolicy</span></code></a>(model_repo, vw_cmd, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.metrics.MetricsTrackerAverage.html#langchain_experimental.rl_chain.metrics.MetricsTrackerAverage" title="langchain_experimental.rl_chain.metrics.MetricsTrackerAverage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.metrics.MetricsTrackerAverage</span></code></a>(step)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.metrics.MetricsTrackerRollingWindow.html#langchain_experimental.rl_chain.metrics.MetricsTrackerRollingWindow" title="langchain_experimental.rl_chain.metrics.MetricsTrackerRollingWindow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.metrics.MetricsTrackerRollingWindow</span></code></a>(...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.model_repository.ModelRepository.html#langchain_experimental.rl_chain.model_repository.ModelRepository" title="langchain_experimental.rl_chain.model_repository.ModelRepository"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.model_repository.ModelRepository</span></code></a>(folder)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.pick_best_chain.PickBest.html#langchain_experimental.rl_chain.pick_best_chain.PickBest" title="langchain_experimental.rl_chain.pick_best_chain.PickBest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.pick_best_chain.PickBest</span></code></a></p></td>
+<td><p><cite>PickBest</cite> is a class designed to leverage the Vowpal Wabbit (VW) model for reinforcement learning with a context, with the goal of modifying the prompt before the LLM call.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.pick_best_chain.PickBestEvent.html#langchain_experimental.rl_chain.pick_best_chain.PickBestEvent" title="langchain_experimental.rl_chain.pick_best_chain.PickBestEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.pick_best_chain.PickBestEvent</span></code></a>(...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.pick_best_chain.PickBestFeatureEmbedder.html#langchain_experimental.rl_chain.pick_best_chain.PickBestFeatureEmbedder" title="langchain_experimental.rl_chain.pick_best_chain.PickBestFeatureEmbedder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.pick_best_chain.PickBestFeatureEmbedder</span></code></a>(...)</p></td>
+<td><p>Text Embedder class that embeds the <cite>BasedOn</cite> and <cite>ToSelectFrom</cite> inputs into a format that can be used by the learning policy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.pick_best_chain.PickBestRandomPolicy.html#langchain_experimental.rl_chain.pick_best_chain.PickBestRandomPolicy" title="langchain_experimental.rl_chain.pick_best_chain.PickBestRandomPolicy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.pick_best_chain.PickBestRandomPolicy</span></code></a>(...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.pick_best_chain.PickBestSelected.html#langchain_experimental.rl_chain.pick_best_chain.PickBestSelected" title="langchain_experimental.rl_chain.pick_best_chain.PickBestSelected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.pick_best_chain.PickBestSelected</span></code></a>([...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.vw_logger.VwLogger.html#langchain_experimental.rl_chain.vw_logger.VwLogger" title="langchain_experimental.rl_chain.vw_logger.VwLogger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.vw_logger.VwLogger</span></code></a>(path)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id19">
+<h3>Functions<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.BasedOn.html#langchain_experimental.rl_chain.base.BasedOn" title="langchain_experimental.rl_chain.base.BasedOn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.BasedOn</span></code></a>(anything)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.Embed.html#langchain_experimental.rl_chain.base.Embed" title="langchain_experimental.rl_chain.base.Embed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.Embed</span></code></a>(anything[, keep])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.EmbedAndKeep.html#langchain_experimental.rl_chain.base.EmbedAndKeep" title="langchain_experimental.rl_chain.base.EmbedAndKeep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.EmbedAndKeep</span></code></a>(anything)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.ToSelectFrom.html#langchain_experimental.rl_chain.base.ToSelectFrom" title="langchain_experimental.rl_chain.base.ToSelectFrom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.ToSelectFrom</span></code></a>(anything)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.embed.html#langchain_experimental.rl_chain.base.embed" title="langchain_experimental.rl_chain.base.embed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.embed</span></code></a>(to_embed, model[, namespace])</p></td>
+<td><p>Embeds the actions or context using the SentenceTransformer model (or a model that has an <cite>encode</cite> function)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.embed_dict_type.html#langchain_experimental.rl_chain.base.embed_dict_type" title="langchain_experimental.rl_chain.base.embed_dict_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.embed_dict_type</span></code></a>(item, model)</p></td>
+<td><p>Helper function to embed a dictionary item.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.embed_list_type.html#langchain_experimental.rl_chain.base.embed_list_type" title="langchain_experimental.rl_chain.base.embed_list_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.embed_list_type</span></code></a>(item, model[, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.embed_string_type.html#langchain_experimental.rl_chain.base.embed_string_type" title="langchain_experimental.rl_chain.base.embed_string_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.embed_string_type</span></code></a>(item, model)</p></td>
+<td><p>Helper function to embed a string or an _Embed object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.get_based_on_and_to_select_from.html#langchain_experimental.rl_chain.base.get_based_on_and_to_select_from" title="langchain_experimental.rl_chain.base.get_based_on_and_to_select_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.get_based_on_and_to_select_from</span></code></a>(inputs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.is_stringtype_instance.html#langchain_experimental.rl_chain.base.is_stringtype_instance" title="langchain_experimental.rl_chain.base.is_stringtype_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.is_stringtype_instance</span></code></a>(item)</p></td>
+<td><p>Helper function to check if an item is a string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.parse_lines.html#langchain_experimental.rl_chain.base.parse_lines" title="langchain_experimental.rl_chain.base.parse_lines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.parse_lines</span></code></a>(parser, input_str)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.prepare_inputs_for_autoembed.html#langchain_experimental.rl_chain.base.prepare_inputs_for_autoembed" title="langchain_experimental.rl_chain.base.prepare_inputs_for_autoembed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.prepare_inputs_for_autoembed</span></code></a>(inputs)</p></td>
+<td><p>go over all the inputs and if something is either wrapped in _ToSelectFrom or _BasedOn, and if their inner values are not already _Embed, then wrap them in EmbedAndKeep while retaining their _ToSelectFrom or _BasedOn status</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="rl_chain/langchain_experimental.rl_chain.base.stringify_embedding.html#langchain_experimental.rl_chain.base.stringify_embedding" title="langchain_experimental.rl_chain.base.stringify_embedding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rl_chain.base.stringify_embedding</span></code></a>(embedding)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 <section id="module-langchain_experimental.smart_llm">
 <span id="langchain-experimental-smart-llm"></span><h2><a class="reference internal" href="#module-langchain_experimental.smart_llm" title="langchain_experimental.smart_llm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.smart_llm</span></code></a><a class="headerlink" href="#module-langchain_experimental.smart_llm" title="Permalink to this headline">¶</a></h2>
 <p>Generalized implementation of SmartGPT (origin: <a class="reference external" href="https://youtu.be/wVzuvf9D9BU">https://youtu.be/wVzuvf9D9BU</a>)</p>
-<section id="id17">
-<h3>Classes<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<section id="id20">
+<h3>Classes<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -685,8 +834,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <section id="module-langchain_experimental.sql">
 <span id="langchain-experimental-sql"></span><h2><a class="reference internal" href="#module-langchain_experimental.sql" title="langchain_experimental.sql"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.sql</span></code></a><a class="headerlink" href="#module-langchain_experimental.sql" title="Permalink to this headline">¶</a></h2>
 <p>Chain for interacting with SQL Database.</p>
-<section id="id18">
-<h3>Classes<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<section id="id21">
+<h3>Classes<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -711,8 +860,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </tbody>
 </table>
 </section>
-<section id="id19">
-<h3>Functions<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<section id="id22">
+<h3>Functions<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -728,8 +877,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </section>
 <section id="module-langchain_experimental.tabular_synthetic_data">
 <span id="langchain-experimental-tabular-synthetic-data"></span><h2><a class="reference internal" href="#module-langchain_experimental.tabular_synthetic_data" title="langchain_experimental.tabular_synthetic_data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.tabular_synthetic_data</span></code></a><a class="headerlink" href="#module-langchain_experimental.tabular_synthetic_data" title="Permalink to this headline">¶</a></h2>
-<section id="id20">
-<h3>Classes<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<section id="id23">
+<h3>Classes<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -742,8 +891,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </tbody>
 </table>
 </section>
-<section id="id21">
-<h3>Functions<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<section id="id24">
+<h3>Functions<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -757,10 +906,47 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </table>
 </section>
 </section>
+<section id="module-langchain_experimental.tools">
+<span id="langchain-experimental-tools"></span><h2><a class="reference internal" href="#module-langchain_experimental.tools" title="langchain_experimental.tools"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.tools</span></code></a><a class="headerlink" href="#module-langchain_experimental.tools" title="Permalink to this headline">¶</a></h2>
+<section id="id25">
+<h3>Classes<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="tools/langchain_experimental.tools.python.tool.PythonAstREPLTool.html#langchain_experimental.tools.python.tool.PythonAstREPLTool" title="langchain_experimental.tools.python.tool.PythonAstREPLTool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tools.python.tool.PythonAstREPLTool</span></code></a></p></td>
+<td><p>A tool for running python code in a REPL.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="tools/langchain_experimental.tools.python.tool.PythonInputs.html#langchain_experimental.tools.python.tool.PythonInputs" title="langchain_experimental.tools.python.tool.PythonInputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tools.python.tool.PythonInputs</span></code></a></p></td>
+<td><p>Create a new model by parsing and validating input data from keyword arguments.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="tools/langchain_experimental.tools.python.tool.PythonREPLTool.html#langchain_experimental.tools.python.tool.PythonREPLTool" title="langchain_experimental.tools.python.tool.PythonREPLTool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tools.python.tool.PythonREPLTool</span></code></a></p></td>
+<td><p>A tool for running python code in a REPL.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id26">
+<h3>Functions<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="tools/langchain_experimental.tools.python.tool.sanitize_input.html#langchain_experimental.tools.python.tool.sanitize_input" title="langchain_experimental.tools.python.tool.sanitize_input"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tools.python.tool.sanitize_input</span></code></a>(query)</p></td>
+<td><p>Sanitize input to the python REPL.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 <section id="module-langchain_experimental.tot">
 <span id="langchain-experimental-tot"></span><h2><a class="reference internal" href="#module-langchain_experimental.tot" title="langchain_experimental.tot"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.tot</span></code></a><a class="headerlink" href="#module-langchain_experimental.tot" title="Permalink to this headline">¶</a></h2>
-<section id="id22">
-<h3>Classes<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<section id="id27">
+<h3>Classes<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -780,7 +966,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <td><p>Memory for the Tree of Thought (ToT) chain.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="tot/langchain_experimental.tot.prompts.CheckerOutputParser.html#langchain_experimental.tot.prompts.CheckerOutputParser" title="langchain_experimental.tot.prompts.CheckerOutputParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tot.prompts.CheckerOutputParser</span></code></a></p></td>
-<td><p>Create a new model by parsing and validating input data from keyword arguments.</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="tot/langchain_experimental.tot.prompts.JSONListOutputParser.html#langchain_experimental.tot.prompts.JSONListOutputParser" title="langchain_experimental.tot.prompts.JSONListOutputParser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tot.prompts.JSONListOutputParser</span></code></a></p></td>
 <td><p>Class to parse the output of a PROPOSE_PROMPT response.</p></td>
@@ -804,6 +990,23 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 </table>
 </section>
 </section>
+<section id="module-langchain_experimental.utilities">
+<span id="langchain-experimental-utilities"></span><h2><a class="reference internal" href="#module-langchain_experimental.utilities" title="langchain_experimental.utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">langchain_experimental.utilities</span></code></a><a class="headerlink" href="#module-langchain_experimental.utilities" title="Permalink to this headline">¶</a></h2>
+<section id="id28">
+<h3>Classes<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="utilities/langchain_experimental.utilities.python.PythonREPL.html#langchain_experimental.utilities.python.PythonREPL" title="langchain_experimental.utilities.python.PythonREPL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utilities.python.PythonREPL</span></code></a></p></td>
+<td><p>Simulates a standalone Python REPL.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 </section>
 
 
@@ -811,7 +1014,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
           <a href="_sources/experimental_api_reference.rst.txt" rel="nofollow">Show this page source</a>
       </footer>
     </div>

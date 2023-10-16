@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.cache &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.cache &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/cache.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
 <script src="../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/cache", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -138,6 +119,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
@@ -154,7 +136,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">cast</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">select</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Row</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">select</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.engine.base</span> <span class="kn">import</span> <span class="n">Engine</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">Session</span>
 
@@ -162,7 +144,6 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">declarative_base</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
-
 
 <span class="kn">from</span> <span class="nn">langchain.llms.base</span> <span class="kn">import</span> <span class="n">LLM</span><span class="p">,</span> <span class="n">get_prompts</span>
 <span class="kn">from</span> <span class="nn">langchain.load.dump</span> <span class="kn">import</span> <span class="n">dumps</span>
@@ -374,6 +355,92 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span></div></div>
 
 
+<div class="viewcode-block" id="UpstashRedisCache"><a class="viewcode-back" href="../../cache/langchain.cache.UpstashRedisCache.html#langchain.cache.UpstashRedisCache">[docs]</a><span class="k">class</span> <span class="nc">UpstashRedisCache</span><span class="p">(</span><span class="n">BaseCache</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cache that uses Upstash Redis as a backend.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="UpstashRedisCache.__init__"><a class="viewcode-back" href="../../cache/langchain.cache.UpstashRedisCache.html#langchain.cache.UpstashRedisCache.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">redis_</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">ttl</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize an instance of UpstashRedisCache.</span>
+
+<span class="sd">        This method initializes an object with Upstash Redis caching capabilities.</span>
+<span class="sd">        It takes a `redis_` parameter, which should be an instance of an Upstash Redis</span>
+<span class="sd">        client class, allowing the object to interact with Upstash Redis</span>
+<span class="sd">        server for caching purposes.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            redis_: An instance of Upstash Redis client class</span>
+<span class="sd">                (e.g., Redis) used for caching.</span>
+<span class="sd">                This allows the object to communicate with</span>
+<span class="sd">                Redis server for caching operations on.</span>
+<span class="sd">            ttl (int, optional): Time-to-live (TTL) for cached items in seconds.</span>
+<span class="sd">                If provided, it sets the time duration for how long cached</span>
+<span class="sd">                items will remain valid. If not provided, cached items will not</span>
+<span class="sd">                have an automatic expiration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">upstash_redis</span> <span class="kn">import</span> <span class="n">Redis</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Could not import upstash_redis python package. &quot;</span>
+                <span class="s2">&quot;Please install it with `pip install upstash_redis`.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">redis_</span><span class="p">,</span> <span class="n">Redis</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please pass in Upstash Redis object.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="n">redis_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ttl</span> <span class="o">=</span> <span class="n">ttl</span></div>
+
+    <span class="k">def</span> <span class="nf">_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute key from prompt and llm_string&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_hash</span><span class="p">(</span><span class="n">prompt</span> <span class="o">+</span> <span class="n">llm_string</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UpstashRedisCache.lookup"><a class="viewcode-back" href="../../cache/langchain.cache.UpstashRedisCache.html#langchain.cache.UpstashRedisCache.lookup">[docs]</a>    <span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RETURN_VAL_TYPE</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up based on prompt and llm_string.&quot;&quot;&quot;</span>
+        <span class="n">generations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Read from a HASH</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">hgetall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">results</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">generations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Generation</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">generations</span> <span class="k">if</span> <span class="n">generations</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="UpstashRedisCache.update"><a class="viewcode-back" href="../../cache/langchain.cache.UpstashRedisCache.html#langchain.cache.UpstashRedisCache.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">return_val</span><span class="p">:</span> <span class="n">RETURN_VAL_TYPE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update cache based on prompt and llm_string.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">gen</span> <span class="ow">in</span> <span class="n">return_val</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gen</span><span class="p">,</span> <span class="n">Generation</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;UpstashRedisCache supports caching of normal LLM generations, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gen</span><span class="p">,</span> <span class="n">ChatGeneration</span><span class="p">):</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s2">&quot;NOTE: Generation has not been cached. UpstashRedisCache does not&quot;</span>
+                    <span class="s2">&quot; support caching ChatModel outputs.&quot;</span>
+                <span class="p">)</span>
+                <span class="k">return</span>
+        <span class="c1"># Write to a HASH</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">)</span>
+
+        <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span> <span class="n">generation</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">generation</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">return_val</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">hset</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">mapping</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ttl</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">expire</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ttl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UpstashRedisCache.clear"><a class="viewcode-back" href="../../cache/langchain.cache.UpstashRedisCache.html#langchain.cache.UpstashRedisCache.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear cache. If `asynchronous` is True, flush asynchronously.</span>
+<span class="sd">        This flushes the *whole* db.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">asynchronous</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;asynchronous&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">asynchronous</span><span class="p">:</span>
+            <span class="n">asynchronous</span> <span class="o">=</span> <span class="s2">&quot;ASYNC&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">asynchronous</span> <span class="o">=</span> <span class="s2">&quot;SYNC&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">flushdb</span><span class="p">(</span><span class="n">flush_type</span><span class="o">=</span><span class="n">asynchronous</span><span class="p">)</span></div></div>
+
+
 <div class="viewcode-block" id="RedisCache"><a class="viewcode-back" href="../../cache/langchain.cache.RedisCache.html#langchain.cache.RedisCache">[docs]</a><span class="k">class</span> <span class="nc">RedisCache</span><span class="p">(</span><span class="n">BaseCache</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cache that uses Redis as a backend.&quot;&quot;&quot;</span>
 
@@ -419,7 +486,18 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">hgetall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">results</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">generations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Generation</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">))</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">generations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loads</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="s2">&quot;Retrieving a cache value that could not be deserialized &quot;</span>
+                        <span class="s2">&quot;properly. This is likely due to the cache being in an &quot;</span>
+                        <span class="s2">&quot;older format. Please recreate your cache to avoid this &quot;</span>
+                        <span class="s2">&quot;error.&quot;</span>
+                    <span class="p">)</span>
+                    <span class="c1"># In a previous life we stored the raw text directly</span>
+                    <span class="c1"># in the table, so assume it&#39;s in that format.</span>
+                    <span class="n">generations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Generation</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">generations</span> <span class="k">if</span> <span class="n">generations</span> <span class="k">else</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="RedisCache.update"><a class="viewcode-back" href="../../cache/langchain.cache.RedisCache.html#langchain.cache.RedisCache.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">return_val</span><span class="p">:</span> <span class="n">RETURN_VAL_TYPE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -430,12 +508,6 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
                     <span class="s2">&quot;RedisCache only supports caching of normal LLM generations, &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gen</span><span class="p">,</span> <span class="n">ChatGeneration</span><span class="p">):</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="s2">&quot;NOTE: Generation has not been cached. RedisCache does not&quot;</span>
-                    <span class="s2">&quot; support caching ChatModel outputs.&quot;</span>
-                <span class="p">)</span>
-                <span class="k">return</span>
         <span class="c1"># Write to a Redis HASH</span>
         <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">)</span>
 
@@ -443,7 +515,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="n">pipe</span><span class="o">.</span><span class="n">hset</span><span class="p">(</span>
                 <span class="n">key</span><span class="p">,</span>
                 <span class="n">mapping</span><span class="o">=</span><span class="p">{</span>
-                    <span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span> <span class="n">generation</span><span class="o">.</span><span class="n">text</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="p">):</span> <span class="n">dumps</span><span class="p">(</span><span class="n">generation</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">generation</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">return_val</span><span class="p">)</span>
                 <span class="p">},</span>
             <span class="p">)</span>
@@ -485,15 +557,15 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            import langchain</span>
+<span class="sd">            from langchain.globals import set_llm_cache</span>
 
 <span class="sd">            from langchain.cache import RedisSemanticCache</span>
 <span class="sd">            from langchain.embeddings import OpenAIEmbeddings</span>
 
-<span class="sd">            langchain.llm_cache = RedisSemanticCache(</span>
+<span class="sd">            set_llm_cache(RedisSemanticCache(</span>
 <span class="sd">                redis_url=&quot;redis://localhost:6379&quot;,</span>
 <span class="sd">                embedding=OpenAIEmbeddings()</span>
-<span class="sd">            )</span>
+<span class="sd">            ))</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">RedisVectorstore</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -554,9 +626,20 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">results</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-                <span class="n">generations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-                    <span class="n">_load_generations_from_json</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;return_val&quot;</span><span class="p">])</span>
-                <span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">generations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">loads</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;return_val&quot;</span><span class="p">]))</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="s2">&quot;Retrieving a cache value that could not be deserialized &quot;</span>
+                        <span class="s2">&quot;properly. This is likely due to the cache being in an &quot;</span>
+                        <span class="s2">&quot;older format. Please recreate your cache to avoid this &quot;</span>
+                        <span class="s2">&quot;error.&quot;</span>
+                    <span class="p">)</span>
+                    <span class="c1"># In a previous life we stored the raw text directly</span>
+                    <span class="c1"># in the table, so assume it&#39;s in that format.</span>
+                    <span class="n">generations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                        <span class="n">_load_generations_from_json</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;return_val&quot;</span><span class="p">])</span>
+                    <span class="p">)</span>
         <span class="k">return</span> <span class="n">generations</span> <span class="k">if</span> <span class="n">generations</span> <span class="k">else</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="RedisSemanticCache.update"><a class="viewcode-back" href="../../cache/langchain.cache.RedisSemanticCache.html#langchain.cache.RedisSemanticCache.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">return_val</span><span class="p">:</span> <span class="n">RETURN_VAL_TYPE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -567,18 +650,12 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
                     <span class="s2">&quot;RedisSemanticCache only supports caching of &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;normal LLM generations, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gen</span><span class="p">,</span> <span class="n">ChatGeneration</span><span class="p">):</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="s2">&quot;NOTE: Generation has not been cached. RedisSentimentCache does not&quot;</span>
-                    <span class="s2">&quot; support caching ChatModel outputs.&quot;</span>
-                <span class="p">)</span>
-                <span class="k">return</span>
         <span class="n">llm_cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_llm_cache</span><span class="p">(</span><span class="n">llm_string</span><span class="p">)</span>
-        <span class="n">_dump_generations_to_json</span><span class="p">([</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">return_val</span><span class="p">])</span>
+
         <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;llm_string&quot;</span><span class="p">:</span> <span class="n">llm_string</span><span class="p">,</span>
             <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
-            <span class="s2">&quot;return_val&quot;</span><span class="p">:</span> <span class="n">_dump_generations_to_json</span><span class="p">([</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">return_val</span><span class="p">]),</span>
+            <span class="s2">&quot;return_val&quot;</span><span class="p">:</span> <span class="n">dumps</span><span class="p">([</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">return_val</span><span class="p">]),</span>
         <span class="p">}</span>
         <span class="n">llm_cache</span><span class="o">.</span><span class="n">add_texts</span><span class="p">(</span><span class="n">texts</span><span class="o">=</span><span class="p">[</span><span class="n">prompt</span><span class="p">],</span> <span class="n">metadatas</span><span class="o">=</span><span class="p">[</span><span class="n">metadata</span><span class="p">])</span></div></div>
 
@@ -605,6 +682,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="sd">            import gptcache</span>
 <span class="sd">            from gptcache.processor.pre import get_prompt</span>
 <span class="sd">            from gptcache.manager.factory import get_data_manager</span>
+<span class="sd">            from langchain.globals import set_llm_cache</span>
 
 <span class="sd">            # Avoid multiple caches using the same file,</span>
 <span class="sd">            causing different llm model caches to affect each other</span>
@@ -618,7 +696,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="sd">                    ),</span>
 <span class="sd">                )</span>
 
-<span class="sd">            langchain.llm_cache = GPTCache(init_gptcache)</span>
+<span class="sd">            set_llm_cache(GPTCache(init_gptcache))</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -788,7 +866,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">ttl</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">configuration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">momento</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">Configuration</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">auth_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">auth_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># for backwards compatibility</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MomentoCache</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct cache from CacheClient parameters.&quot;&quot;&quot;</span>
@@ -801,8 +880,13 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">configuration</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">configuration</span> <span class="o">=</span> <span class="n">Configurations</span><span class="o">.</span><span class="n">Laptop</span><span class="o">.</span><span class="n">v1</span><span class="p">()</span>
-        <span class="n">auth_token</span> <span class="o">=</span> <span class="n">auth_token</span> <span class="ow">or</span> <span class="n">get_from_env</span><span class="p">(</span><span class="s2">&quot;auth_token&quot;</span><span class="p">,</span> <span class="s2">&quot;MOMENTO_AUTH_TOKEN&quot;</span><span class="p">)</span>
-        <span class="n">credentials</span> <span class="o">=</span> <span class="n">CredentialProvider</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">auth_token</span><span class="p">)</span>
+
+        <span class="c1"># Try checking `MOMENTO_AUTH_TOKEN` first for backwards compatibility</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">api_key</span> <span class="o">=</span> <span class="n">auth_token</span> <span class="ow">or</span> <span class="n">get_from_env</span><span class="p">(</span><span class="s2">&quot;auth_token&quot;</span><span class="p">,</span> <span class="s2">&quot;MOMENTO_AUTH_TOKEN&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">api_key</span> <span class="o">=</span> <span class="n">api_key</span> <span class="ow">or</span> <span class="n">get_from_env</span><span class="p">(</span><span class="s2">&quot;api_key&quot;</span><span class="p">,</span> <span class="s2">&quot;MOMENTO_API_KEY&quot;</span><span class="p">)</span>
+        <span class="n">credentials</span> <span class="o">=</span> <span class="n">CredentialProvider</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
         <span class="n">cache_client</span> <span class="o">=</span> <span class="n">CacheClient</span><span class="p">(</span><span class="n">configuration</span><span class="p">,</span> <span class="n">credentials</span><span class="p">,</span> <span class="n">default_ttl</span><span class="o">=</span><span class="n">ttl</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">cache_client</span><span class="p">,</span> <span class="n">cache_name</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="n">ttl</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
@@ -1164,13 +1248,97 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <div class="viewcode-block" id="CassandraSemanticCache.clear"><a class="viewcode-back" href="../../cache/langchain.cache.CassandraSemanticCache.html#langchain.cache.CassandraSemanticCache.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear the *whole* semantic cache.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="FullMd5LLMCache"><a class="viewcode-back" href="../../cache/langchain.cache.FullMd5LLMCache.html#langchain.cache.FullMd5LLMCache">[docs]</a><span class="k">class</span> <span class="nc">FullMd5LLMCache</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;SQLite table for full LLM Cache (all generations).&quot;&quot;&quot;</span>
+
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;full_md5_llm_cache&quot;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">prompt_md5</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">llm</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SQLAlchemyMd5Cache"><a class="viewcode-back" href="../../cache/langchain.cache.SQLAlchemyMd5Cache.html#langchain.cache.SQLAlchemyMd5Cache">[docs]</a><span class="k">class</span> <span class="nc">SQLAlchemyMd5Cache</span><span class="p">(</span><span class="n">BaseCache</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cache that uses SQAlchemy as a backend.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SQLAlchemyMd5Cache.__init__"><a class="viewcode-back" href="../../cache/langchain.cache.SQLAlchemyMd5Cache.html#langchain.cache.SQLAlchemyMd5Cache.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">engine</span><span class="p">:</span> <span class="n">Engine</span><span class="p">,</span> <span class="n">cache_schema</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">FullMd5LLMCache</span><span class="p">]</span> <span class="o">=</span> <span class="n">FullMd5LLMCache</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize by creating all tables.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">engine</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span> <span class="o">=</span> <span class="n">cache_schema</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SQLAlchemyMd5Cache.lookup"><a class="viewcode-back" href="../../cache/langchain.cache.SQLAlchemyMd5Cache.html#langchain.cache.SQLAlchemyMd5Cache.lookup">[docs]</a>    <span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RETURN_VAL_TYPE</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Look up based on prompt and llm_string.&quot;&quot;&quot;</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_rows</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="SQLAlchemyMd5Cache.update"><a class="viewcode-back" href="../../cache/langchain.cache.SQLAlchemyMd5Cache.html#langchain.cache.SQLAlchemyMd5Cache.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">return_val</span><span class="p">:</span> <span class="n">RETURN_VAL_TYPE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update based on prompt and llm_string.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_delete_previous</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">)</span>
+        <span class="n">prompt_md5</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_md5</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid1</span><span class="p">()),</span>
+                <span class="n">prompt</span><span class="o">=</span><span class="n">prompt</span><span class="p">,</span>
+                <span class="n">prompt_md5</span><span class="o">=</span><span class="n">prompt_md5</span><span class="p">,</span>
+                <span class="n">llm</span><span class="o">=</span><span class="n">llm_string</span><span class="p">,</span>
+                <span class="n">response</span><span class="o">=</span><span class="n">dumps</span><span class="p">(</span><span class="n">gen</span><span class="p">),</span>
+                <span class="n">idx</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">gen</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">return_val</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">begin</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_delete_previous</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stmt</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">select</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">prompt_md5</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_md5</span><span class="p">(</span><span class="n">prompt</span><span class="p">))</span>  <span class="c1"># type: ignore</span>
+            <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">llm</span> <span class="o">==</span> <span class="n">llm_string</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">prompt</span> <span class="o">==</span> <span class="n">prompt</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">idx</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">begin</span><span class="p">():</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">stmt</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+                <span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_search_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Row</span><span class="p">]:</span>
+        <span class="n">prompt_pd5</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_md5</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+        <span class="n">stmt</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">select</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">prompt_md5</span> <span class="o">==</span> <span class="n">prompt_pd5</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+            <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">llm</span> <span class="o">==</span> <span class="n">llm_string</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">prompt</span> <span class="o">==</span> <span class="n">prompt</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">idx</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">stmt</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SQLAlchemyMd5Cache.clear"><a class="viewcode-back" href="../../cache/langchain.cache.SQLAlchemyMd5Cache.html#langchain.cache.SQLAlchemyMd5Cache.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear cache.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_schema</span><span class="o">.</span><span class="n">delete</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="SQLAlchemyMd5Cache.get_md5"><a class="viewcode-back" href="../../cache/langchain.cache.SQLAlchemyMd5Cache.html#langchain.cache.SQLAlchemyMd5Cache.get_md5">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_md5</span><span class="p">(</span><span class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">input_string</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div></div>
 </pre></div>
 
       </div>
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

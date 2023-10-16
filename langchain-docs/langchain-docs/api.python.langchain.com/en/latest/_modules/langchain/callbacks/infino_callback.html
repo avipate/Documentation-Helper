@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.callbacks.infino_callback &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.callbacks.infino_callback &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/callbacks/infino_callback.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
 <script src="../../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/callbacks/infino_callback", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -116,6 +97,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 <span class="kn">from</span> <span class="nn">langchain.callbacks.base</span> <span class="kn">import</span> <span class="n">BaseCallbackHandler</span>
 <span class="kn">from</span> <span class="nn">langchain.schema</span> <span class="kn">import</span> <span class="n">AgentAction</span><span class="p">,</span> <span class="n">AgentFinish</span><span class="p">,</span> <span class="n">LLMResult</span>
+<span class="kn">from</span> <span class="nn">langchain.schema.messages</span> <span class="kn">import</span> <span class="n">BaseMessage</span>
 
 
 <div class="viewcode-block" id="import_infino"><a class="viewcode-back" href="../../../callbacks/langchain.callbacks.infino_callback.import_infino.html#langchain.callbacks.infino_callback.import_infino">[docs]</a><span class="k">def</span> <span class="nf">import_infino</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -131,6 +113,32 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="k">return</span> <span class="n">InfinoClient</span><span class="p">()</span></div>
 
 
+<div class="viewcode-block" id="import_tiktoken"><a class="viewcode-back" href="../../../callbacks/langchain.callbacks.infino_callback.import_tiktoken.html#langchain.callbacks.infino_callback.import_tiktoken">[docs]</a><span class="k">def</span> <span class="nf">import_tiktoken</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Import tiktoken for counting tokens for OpenAI models.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">tiktoken</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+            <span class="s2">&quot;To use the ChatOpenAI model with Infino callback manager, you need to &quot;</span>
+            <span class="s2">&quot;have the `tiktoken` python package installed.&quot;</span>
+            <span class="s2">&quot;Please install it with `pip install tiktoken`&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">tiktoken</span></div>
+
+
+<div class="viewcode-block" id="get_num_tokens"><a class="viewcode-back" href="../../../callbacks/langchain.callbacks.infino_callback.get_num_tokens.html#langchain.callbacks.infino_callback.get_num_tokens">[docs]</a><span class="k">def</span> <span class="nf">get_num_tokens</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">openai_model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate num tokens for OpenAI with tiktoken package.</span>
+
+<span class="sd">    Official documentation: https://github.com/openai/openai-cookbook/blob/main</span>
+<span class="sd">                            /examples/How_to_count_tokens_with_tiktoken.ipynb</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tiktoken</span> <span class="o">=</span> <span class="n">import_tiktoken</span><span class="p">()</span>
+
+    <span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">encoding_for_model</span><span class="p">(</span><span class="n">openai_model_name</span><span class="p">)</span>
+    <span class="n">num_tokens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">encoding</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">string</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">num_tokens</span></div>
+
+
 <div class="viewcode-block" id="InfinoCallbackHandler"><a class="viewcode-back" href="../../../callbacks/langchain.callbacks.infino_callback.InfinoCallbackHandler.html#langchain.callbacks.infino_callback.InfinoCallbackHandler">[docs]</a><span class="k">class</span> <span class="nc">InfinoCallbackHandler</span><span class="p">(</span><span class="n">BaseCallbackHandler</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Callback Handler that logs to Infino.&quot;&quot;&quot;</span>
 
@@ -144,7 +152,9 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">import_infino</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model_id</span> <span class="o">=</span> <span class="n">model_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model_version</span> <span class="o">=</span> <span class="n">model_version</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_chat_openai_model</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chat_openai_model_name</span> <span class="o">=</span> <span class="s2">&quot;gpt-3.5-turbo&quot;</span></div>
 
     <span class="k">def</span> <span class="nf">_send_to_infino</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -210,7 +220,12 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="c1"># Track success or error flag.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_send_to_infino</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
 
-        <span class="c1"># Track token usage.</span>
+        <span class="c1"># Track prompt response.</span>
+        <span class="k">for</span> <span class="n">generations</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">generations</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">generation</span> <span class="ow">in</span> <span class="n">generations</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_send_to_infino</span><span class="p">(</span><span class="s2">&quot;prompt_response&quot;</span><span class="p">,</span> <span class="n">generation</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">is_ts</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Track token usage (for non-chat models).</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">llm_output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">llm_output</span><span class="p">,</span> <span class="n">Dict</span><span class="p">):</span>
             <span class="n">token_usage</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">llm_output</span><span class="p">[</span><span class="s2">&quot;token_usage&quot;</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">token_usage</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -221,10 +236,16 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
                 <span class="bp">self</span><span class="o">.</span><span class="n">_send_to_infino</span><span class="p">(</span><span class="s2">&quot;total_tokens&quot;</span><span class="p">,</span> <span class="n">total_tokens</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_send_to_infino</span><span class="p">(</span><span class="s2">&quot;completion_tokens&quot;</span><span class="p">,</span> <span class="n">completion_tokens</span><span class="p">)</span>
 
-        <span class="c1"># Track prompt response.</span>
-        <span class="k">for</span> <span class="n">generations</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">generations</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">generation</span> <span class="ow">in</span> <span class="n">generations</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_send_to_infino</span><span class="p">(</span><span class="s2">&quot;prompt_response&quot;</span><span class="p">,</span> <span class="n">generation</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">is_ts</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+        <span class="c1"># Track completion token usage (for openai chat models).</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_chat_openai_model</span><span class="p">:</span>
+            <span class="n">messages</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">generation</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>  <span class="c1"># type: ignore[attr-defined]</span>
+                <span class="k">for</span> <span class="n">generation</span> <span class="ow">in</span> <span class="n">generations</span>
+            <span class="p">)</span>
+            <span class="n">completion_tokens</span> <span class="o">=</span> <span class="n">get_num_tokens</span><span class="p">(</span>
+                <span class="n">messages</span><span class="p">,</span> <span class="n">openai_model_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">chat_openai_model_name</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_send_to_infino</span><span class="p">(</span><span class="s2">&quot;completion_tokens&quot;</span><span class="p">,</span> <span class="n">completion_tokens</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="InfinoCallbackHandler.on_llm_error"><a class="viewcode-back" href="../../../callbacks/langchain.callbacks.infino_callback.InfinoCallbackHandler.html#langchain.callbacks.infino_callback.InfinoCallbackHandler.on_llm_error">[docs]</a>    <span class="k">def</span> <span class="nf">on_llm_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the error flag.&quot;&quot;&quot;</span>
@@ -277,14 +298,68 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 <div class="viewcode-block" id="InfinoCallbackHandler.on_agent_finish"><a class="viewcode-back" href="../../../callbacks/langchain.callbacks.infino_callback.InfinoCallbackHandler.html#langchain.callbacks.infino_callback.InfinoCallbackHandler.on_agent_finish">[docs]</a>    <span class="k">def</span> <span class="nf">on_agent_finish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">finish</span><span class="p">:</span> <span class="n">AgentFinish</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do nothing.&quot;&quot;&quot;</span>
-        <span class="k">pass</span></div></div>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="InfinoCallbackHandler.on_chat_model_start"><a class="viewcode-back" href="../../../callbacks/langchain.callbacks.infino_callback.InfinoCallbackHandler.html#langchain.callbacks.infino_callback.InfinoCallbackHandler.on_chat_model_start">[docs]</a>    <span class="k">def</span> <span class="nf">on_chat_model_start</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">serialized</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">BaseMessage</span><span class="p">]],</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run when LLM starts running.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Currently, for chat models, we only support input prompts for ChatOpenAI.</span>
+        <span class="c1"># Check if this model is a ChatOpenAI model.</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">serialized</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;ChatOpenAI&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">is_chat_openai_model</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+
+        <span class="c1"># Track prompt tokens for ChatOpenAI model.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_chat_openai_model</span><span class="p">:</span>
+            <span class="n">invocation_params</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;invocation_params&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">invocation_params</span><span class="p">:</span>
+                <span class="n">model_name</span> <span class="o">=</span> <span class="n">invocation_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;model_name&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">model_name</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">chat_openai_model_name</span> <span class="o">=</span> <span class="n">model_name</span>
+                    <span class="n">prompt_tokens</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">for</span> <span class="n">message_list</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+                        <span class="n">message_string</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">content</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">message_list</span><span class="p">)</span>
+                        <span class="n">num_tokens</span> <span class="o">=</span> <span class="n">get_num_tokens</span><span class="p">(</span>
+                            <span class="n">message_string</span><span class="p">,</span>
+                            <span class="n">openai_model_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">chat_openai_model_name</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="n">prompt_tokens</span> <span class="o">+=</span> <span class="n">num_tokens</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_send_to_infino</span><span class="p">(</span><span class="s2">&quot;prompt_tokens&quot;</span><span class="p">,</span> <span class="n">prompt_tokens</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;on_chat_model_start: is_chat_openai_model= </span><span class="se">\</span>
+<span class="s2">                  </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_chat_openai_model</span><span class="si">}</span><span class="s2">, </span><span class="se">\</span>
+<span class="s2">                  chat_openai_model_name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">chat_openai_model_name</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Send the prompt to infino</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">content</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">messages</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_to_infino</span><span class="p">(</span><span class="s2">&quot;prompt&quot;</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">is_ts</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Set the error flag to indicate no error (this will get overridden</span>
+        <span class="c1"># in on_llm_error if an error occurs).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Set the start time (so that we can calculate the request</span>
+        <span class="c1"># duration in on_llm_end).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div></div>
 </pre></div>
 
       </div>
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

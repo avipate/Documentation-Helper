@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.retrievers.document_compressors.base &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.retrievers.document_compressors.base &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/retrievers/document_compressors/base.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
 <script src="../../../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/retrievers/document_compressors/base", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -111,7 +92,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
       <div class="sk-page-content container-fluid body px-md-3" role="main">
         
   <h1>Source code for langchain.retrievers.document_compressors.base</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">signature</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -132,14 +114,16 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compress retrieved documents given the query context.&quot;&quot;&quot;</span></div>
 
-<div class="viewcode-block" id="BaseDocumentCompressor.acompress_documents"><a class="viewcode-back" href="../../../../retrievers/langchain.retrievers.document_compressors.base.BaseDocumentCompressor.html#langchain.retrievers.document_compressors.base.BaseDocumentCompressor.acompress_documents">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">acompress_documents</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseDocumentCompressor.acompress_documents"><a class="viewcode-back" href="../../../../retrievers/langchain.retrievers.document_compressors.base.BaseDocumentCompressor.html#langchain.retrievers.document_compressors.base.BaseDocumentCompressor.acompress_documents">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">acompress_documents</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">documents</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Document</span><span class="p">],</span>
         <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">callbacks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callbacks</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compress retrieved documents given the query context.&quot;&quot;&quot;</span></div></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compress retrieved documents given the query context.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span>
+            <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">compress_documents</span><span class="p">,</span> <span class="n">documents</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">callbacks</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="DocumentCompressorPipeline"><a class="viewcode-back" href="../../../../retrievers/langchain.retrievers.document_compressors.base.DocumentCompressorPipeline.html#langchain.retrievers.document_compressors.base.DocumentCompressorPipeline">[docs]</a><span class="k">class</span> <span class="nc">DocumentCompressorPipeline</span><span class="p">(</span><span class="n">BaseDocumentCompressor</span><span class="p">):</span>
@@ -212,7 +196,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

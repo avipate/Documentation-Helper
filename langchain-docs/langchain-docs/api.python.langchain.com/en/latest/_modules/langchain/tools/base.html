@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.tools.base &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.tools.base &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/tools/base.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
 <script src="../../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/tools/base", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -130,6 +111,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">CallbackManagerForToolRun</span><span class="p">,</span>
     <span class="n">Callbacks</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">langchain.load.serializable</span> <span class="kn">import</span> <span class="n">Serializable</span>
 <span class="kn">from</span> <span class="nn">langchain.pydantic_v1</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseModel</span><span class="p">,</span>
     <span class="n">Extra</span><span class="p">,</span>
@@ -138,10 +120,10 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">root_validator</span><span class="p">,</span>
     <span class="n">validate_arguments</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">langchain.schema.runnable</span> <span class="kn">import</span> <span class="n">Runnable</span><span class="p">,</span> <span class="n">RunnableConfig</span>
+<span class="kn">from</span> <span class="nn">langchain.schema.runnable</span> <span class="kn">import</span> <span class="n">Runnable</span><span class="p">,</span> <span class="n">RunnableConfig</span><span class="p">,</span> <span class="n">RunnableSerializable</span>
 
 
-<div class="viewcode-block" id="SchemaAnnotationError"><a class="viewcode-back" href="../../../tools/langchain.tools.base.SchemaAnnotationError.html#langchain.tools.base.SchemaAnnotationError">[docs]</a><span class="k">class</span> <span class="nc">SchemaAnnotationError</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+<div class="viewcode-block" id="SchemaAnnotationError"><a class="viewcode-back" href="../../../tools/langchain.tools.base.SchemaAnnotationError.html#langchain.agents.agent.SchemaAnnotationError">[docs]</a><span class="k">class</span> <span class="nc">SchemaAnnotationError</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when &#39;args_schema&#39; is missing or has an incorrect type annotation.&quot;&quot;&quot;</span></div>
 
 
@@ -173,7 +155,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">arbitrary_types_allowed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 
 
-<div class="viewcode-block" id="create_schema_from_function"><a class="viewcode-back" href="../../../tools/langchain.tools.base.create_schema_from_function.html#langchain.tools.base.create_schema_from_function">[docs]</a><span class="k">def</span> <span class="nf">create_schema_from_function</span><span class="p">(</span>
+<div class="viewcode-block" id="create_schema_from_function"><a class="viewcode-back" href="../../../tools/langchain.tools.base.create_schema_from_function.html#langchain.agents.agent.create_schema_from_function">[docs]</a><span class="k">def</span> <span class="nf">create_schema_from_function</span><span class="p">(</span>
     <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]:</span>
@@ -198,7 +180,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ToolException"><a class="viewcode-back" href="../../../tools/langchain.tools.base.ToolException.html#langchain.tools.base.ToolException">[docs]</a><span class="k">class</span> <span class="nc">ToolException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="ToolException"><a class="viewcode-back" href="../../../tools/langchain.tools.base.ToolException.html#langchain.agents.agent.ToolException">[docs]</a><span class="k">class</span> <span class="nc">ToolException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An optional exception that tool throws when execution error occurs.</span>
 
 <span class="sd">    When this exception is thrown, the agent will not stop working,</span>
@@ -210,7 +192,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="BaseTool"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.tools.base.BaseTool">[docs]</a><span class="k">class</span> <span class="nc">BaseTool</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">Runnable</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span> <span class="n">Any</span><span class="p">]):</span>
+<div class="viewcode-block" id="BaseTool"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.agents.agent.BaseTool">[docs]</a><span class="k">class</span> <span class="nc">BaseTool</span><span class="p">(</span><span class="n">RunnableSerializable</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span> <span class="n">Any</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Interface LangChain tools must implement.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -278,10 +260,9 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Handle the content of the ToolException thrown.&quot;&quot;&quot;</span>
 
-    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">Serializable</span><span class="o">.</span><span class="n">Config</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Configuration for this pydantic object.&quot;&quot;&quot;</span>
 
-        <span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span>
         <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="nd">@property</span>
@@ -308,7 +289,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">create_schema_from_function</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BaseTool.invoke"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.tools.base.BaseTool.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseTool.invoke"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.agents.agent.BaseTool.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -324,16 +305,12 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseTool.ainvoke"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.tools.base.BaseTool.ainvoke">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">ainvoke</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseTool.ainvoke"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.agents.agent.BaseTool.ainvoke">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">ainvoke</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_arun</span> <span class="o">==</span> <span class="n">BaseTool</span><span class="o">.</span><span class="n">_arun</span><span class="p">:</span>
-            <span class="c1"># If the tool does not implement async, fall back to default implementation</span>
-            <span class="k">return</span> <span class="k">await</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">ainvoke</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
         <span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">arun</span><span class="p">(</span>
             <span class="nb">input</span><span class="p">,</span>
@@ -410,7 +387,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(),</span> <span class="n">tool_input</span>
 
-<div class="viewcode-block" id="BaseTool.run"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.tools.base.BaseTool.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseTool.run"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.agents.agent.BaseTool.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">tool_input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span>
         <span class="n">verbose</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -485,7 +462,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">observation</span></div>
 
-<div class="viewcode-block" id="BaseTool.arun"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.tools.base.BaseTool.arun">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">arun</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseTool.arun"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.agents.agent.BaseTool.arun">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">arun</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">tool_input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span>
         <span class="n">verbose</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -560,12 +537,12 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">observation</span></div>
 
-<div class="viewcode-block" id="BaseTool.__call__"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.tools.base.BaseTool.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">callbacks</span><span class="p">:</span> <span class="n">Callbacks</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseTool.__call__"><a class="viewcode-back" href="../../../tools/langchain.tools.base.BaseTool.html#langchain.agents.agent.BaseTool.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">callbacks</span><span class="p">:</span> <span class="n">Callbacks</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Make tool callable.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tool_input</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="Tool"><a class="viewcode-back" href="../../../tools/langchain.tools.base.Tool.html#langchain.tools.base.Tool">[docs]</a><span class="k">class</span> <span class="nc">Tool</span><span class="p">(</span><span class="n">BaseTool</span><span class="p">):</span>
+<div class="viewcode-block" id="Tool"><a class="viewcode-back" href="../../../tools/langchain.tools.base.Tool.html#langchain.agents.agent.Tool">[docs]</a><span class="k">class</span> <span class="nc">Tool</span><span class="p">(</span><span class="n">BaseTool</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tool that takes in function or coroutine directly.&quot;&quot;&quot;</span>
 
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -576,7 +553,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
     <span class="c1"># --- Runnable ---</span>
 
-<div class="viewcode-block" id="Tool.ainvoke"><a class="viewcode-back" href="../../../tools/langchain.tools.base.Tool.html#langchain.tools.base.Tool.ainvoke">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">ainvoke</span><span class="p">(</span>
+<div class="viewcode-block" id="Tool.ainvoke"><a class="viewcode-back" href="../../../tools/langchain.tools.base.Tool.html#langchain.agents.agent.Tool.ainvoke">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">ainvoke</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -667,7 +644,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="Tool.from_function"><a class="viewcode-back" href="../../../tools/langchain.tools.base.Tool.html#langchain.tools.base.Tool.from_function">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Tool.from_function"><a class="viewcode-back" href="../../../tools/langchain.tools.base.Tool.html#langchain.agents.agent.Tool.from_function">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_function</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">func</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">],</span>
@@ -694,7 +671,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="StructuredTool"><a class="viewcode-back" href="../../../tools/langchain.tools.base.StructuredTool.html#langchain.tools.base.StructuredTool">[docs]</a><span class="k">class</span> <span class="nc">StructuredTool</span><span class="p">(</span><span class="n">BaseTool</span><span class="p">):</span>
+<div class="viewcode-block" id="StructuredTool"><a class="viewcode-back" href="../../../tools/langchain.tools.base.StructuredTool.html#langchain.agents.agent.StructuredTool">[docs]</a><span class="k">class</span> <span class="nc">StructuredTool</span><span class="p">(</span><span class="n">BaseTool</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tool that can operate on any number of inputs.&quot;&quot;&quot;</span>
 
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -707,7 +684,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
     <span class="c1"># --- Runnable ---</span>
 
-<div class="viewcode-block" id="StructuredTool.ainvoke"><a class="viewcode-back" href="../../../tools/langchain.tools.base.StructuredTool.html#langchain.tools.base.StructuredTool.ainvoke">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">ainvoke</span><span class="p">(</span>
+<div class="viewcode-block" id="StructuredTool.ainvoke"><a class="viewcode-back" href="../../../tools/langchain.tools.base.StructuredTool.html#langchain.agents.agent.StructuredTool.ainvoke">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">ainvoke</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -770,12 +747,11 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="p">)</span>
         <span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span>
             <span class="kc">None</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">,</span>
             <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">,</span> <span class="n">run_manager</span><span class="o">=</span><span class="n">run_manager</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
             <span class="o">*</span><span class="n">args</span><span class="p">,</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="StructuredTool.from_function"><a class="viewcode-back" href="../../../tools/langchain.tools.base.StructuredTool.html#langchain.tools.base.StructuredTool.from_function">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="StructuredTool.from_function"><a class="viewcode-back" href="../../../tools/langchain.tools.base.StructuredTool.html#langchain.agents.agent.StructuredTool.from_function">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_function</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">func</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -846,7 +822,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="tool"><a class="viewcode-back" href="../../../tools/langchain.tools.base.tool.html#langchain.tools.base.tool">[docs]</a><span class="k">def</span> <span class="nf">tool</span><span class="p">(</span>
+<div class="viewcode-block" id="tool"><a class="viewcode-back" href="../../../tools/langchain.tools.base.tool.html#langchain.agents.agent.tool">[docs]</a><span class="k">def</span> <span class="nf">tool</span><span class="p">(</span>
     <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Runnable</span><span class="p">],</span>
     <span class="n">return_direct</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">args_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">BaseModel</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -966,7 +942,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

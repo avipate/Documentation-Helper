@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.vectorstores.redis.schema &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.vectorstores.redis.schema &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/vectorstores/redis/schema.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
 <script src="../../../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/vectorstores/redis/schema", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -135,16 +116,22 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="RedisDistanceMetric"><a class="viewcode-back" href="../../../../vectorstores/langchain.vectorstores.redis.schema.RedisDistanceMetric.html#langchain.vectorstores.redis.schema.RedisDistanceMetric">[docs]</a><span class="k">class</span> <span class="nc">RedisDistanceMetric</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Distance metrics for Redis vector fields.&quot;&quot;&quot;</span>
+
     <span class="n">l2</span> <span class="o">=</span> <span class="s2">&quot;L2&quot;</span>
     <span class="n">cosine</span> <span class="o">=</span> <span class="s2">&quot;COSINE&quot;</span>
     <span class="n">ip</span> <span class="o">=</span> <span class="s2">&quot;IP&quot;</span></div>
 
 
 <div class="viewcode-block" id="RedisField"><a class="viewcode-back" href="../../../../vectorstores/langchain.vectorstores.redis.schema.RedisField.html#langchain.vectorstores.redis.schema.RedisField">[docs]</a><span class="k">class</span> <span class="nc">RedisField</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for Redis fields.&quot;&quot;&quot;</span>
+
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TextFieldSchema"><a class="viewcode-back" href="../../../../vectorstores/langchain.vectorstores.redis.schema.TextFieldSchema.html#langchain.vectorstores.redis.schema.TextFieldSchema">[docs]</a><span class="k">class</span> <span class="nc">TextFieldSchema</span><span class="p">(</span><span class="n">RedisField</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Schema for text fields in Redis.&quot;&quot;&quot;</span>
+
     <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">no_stem</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">phonetic_matcher</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -166,6 +153,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="TagFieldSchema"><a class="viewcode-back" href="../../../../vectorstores/langchain.vectorstores.redis.schema.TagFieldSchema.html#langchain.vectorstores.redis.schema.TagFieldSchema">[docs]</a><span class="k">class</span> <span class="nc">TagFieldSchema</span><span class="p">(</span><span class="n">RedisField</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Schema for tag fields in Redis.&quot;&quot;&quot;</span>
+
     <span class="n">separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span>
     <span class="n">case_sensitive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">no_index</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -184,6 +173,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="NumericFieldSchema"><a class="viewcode-back" href="../../../../vectorstores/langchain.vectorstores.redis.schema.NumericFieldSchema.html#langchain.vectorstores.redis.schema.NumericFieldSchema">[docs]</a><span class="k">class</span> <span class="nc">NumericFieldSchema</span><span class="p">(</span><span class="n">RedisField</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Schema for numeric fields in Redis.&quot;&quot;&quot;</span>
+
     <span class="n">no_index</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">sortable</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -194,6 +185,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="RedisVectorField"><a class="viewcode-back" href="../../../../vectorstores/langchain.vectorstores.redis.schema.RedisVectorField.html#langchain.vectorstores.redis.schema.RedisVectorField">[docs]</a><span class="k">class</span> <span class="nc">RedisVectorField</span><span class="p">(</span><span class="n">RedisField</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for Redis vector fields.&quot;&quot;&quot;</span>
+
     <span class="n">dims</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
     <span class="n">algorithm</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
     <span class="n">datatype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;FLOAT32&quot;</span><span class="p">)</span>
@@ -214,6 +207,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="FlatVectorField"><a class="viewcode-back" href="../../../../vectorstores/langchain.vectorstores.redis.schema.FlatVectorField.html#langchain.vectorstores.redis.schema.FlatVectorField">[docs]</a><span class="k">class</span> <span class="nc">FlatVectorField</span><span class="p">(</span><span class="n">RedisVectorField</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Schema for flat vector fields in Redis.&quot;&quot;&quot;</span>
+
     <span class="n">algorithm</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;FLAT&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;FLAT&quot;</span>
     <span class="n">block_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 
@@ -234,6 +229,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="HNSWVectorField"><a class="viewcode-back" href="../../../../vectorstores/langchain.vectorstores.redis.schema.HNSWVectorField.html#langchain.vectorstores.redis.schema.HNSWVectorField">[docs]</a><span class="k">class</span> <span class="nc">HNSWVectorField</span><span class="p">(</span><span class="n">RedisVectorField</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Schema for HNSW vector fields in Redis.&quot;&quot;&quot;</span>
+
     <span class="n">algorithm</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;HNSW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;HNSW&quot;</span>
     <span class="n">m</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
     <span class="n">ef_construction</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
@@ -260,6 +257,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="RedisModel"><a class="viewcode-back" href="../../../../vectorstores/langchain.vectorstores.redis.schema.RedisModel.html#langchain.vectorstores.redis.schema.RedisModel">[docs]</a><span class="k">class</span> <span class="nc">RedisModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Schema for Redis index.&quot;&quot;&quot;</span>
+
     <span class="c1"># always have a content field for text</span>
     <span class="n">text</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">TextFieldSchema</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">TextFieldSchema</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="p">)]</span>
     <span class="n">tag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">TagFieldSchema</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -381,8 +380,11 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <div class="viewcode-block" id="read_schema"><a class="viewcode-back" href="../../../../vectorstores/langchain.vectorstores.redis.schema.read_schema.html#langchain.vectorstores.redis.schema.read_schema">[docs]</a><span class="k">def</span> <span class="nf">read_schema</span><span class="p">(</span>
     <span class="n">index_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">]]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="c1"># check if its a dict and return RedisModel otherwise, check if it&#39;s a path and</span>
-    <span class="c1"># read in the file assuming it&#39;s a yaml file and return a RedisModel</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reads in the index schema from a dict or yaml file.</span>
+
+<span class="sd">    Check if it is a dict and return RedisModel otherwise, check if it&#39;s a path and</span>
+<span class="sd">    read in the file assuming it&#39;s a yaml file and return a RedisModel</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index_schema</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">index_schema</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index_schema</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
@@ -405,7 +407,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

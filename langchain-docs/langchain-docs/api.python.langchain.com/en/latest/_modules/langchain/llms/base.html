@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.llms.base &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.llms.base &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/llms/base.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
 <script src="../../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/llms/base", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -150,7 +131,6 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">wait_exponential</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">langchain</span>
 <span class="kn">from</span> <span class="nn">langchain.callbacks.base</span> <span class="kn">import</span> <span class="n">BaseCallbackManager</span>
 <span class="kn">from</span> <span class="nn">langchain.callbacks.manager</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">AsyncCallbackManager</span><span class="p">,</span>
@@ -159,16 +139,12 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">CallbackManagerForLLMRun</span><span class="p">,</span>
     <span class="n">Callbacks</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">langchain.globals</span> <span class="kn">import</span> <span class="n">get_llm_cache</span>
 <span class="kn">from</span> <span class="nn">langchain.load.dump</span> <span class="kn">import</span> <span class="n">dumpd</span>
 <span class="kn">from</span> <span class="nn">langchain.prompts.base</span> <span class="kn">import</span> <span class="n">StringPromptValue</span>
 <span class="kn">from</span> <span class="nn">langchain.prompts.chat</span> <span class="kn">import</span> <span class="n">ChatPromptValue</span>
 <span class="kn">from</span> <span class="nn">langchain.pydantic_v1</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">root_validator</span><span class="p">,</span> <span class="n">validator</span>
-<span class="kn">from</span> <span class="nn">langchain.schema</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">Generation</span><span class="p">,</span>
-    <span class="n">LLMResult</span><span class="p">,</span>
-    <span class="n">PromptValue</span><span class="p">,</span>
-    <span class="n">RunInfo</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">langchain.schema</span> <span class="kn">import</span> <span class="n">Generation</span><span class="p">,</span> <span class="n">LLMResult</span><span class="p">,</span> <span class="n">PromptValue</span><span class="p">,</span> <span class="n">RunInfo</span>
 <span class="kn">from</span> <span class="nn">langchain.schema.language_model</span> <span class="kn">import</span> <span class="n">BaseLanguageModel</span><span class="p">,</span> <span class="n">LanguageModelInput</span>
 <span class="kn">from</span> <span class="nn">langchain.schema.messages</span> <span class="kn">import</span> <span class="n">AIMessage</span><span class="p">,</span> <span class="n">BaseMessage</span><span class="p">,</span> <span class="n">get_buffer_string</span>
 <span class="kn">from</span> <span class="nn">langchain.schema.output</span> <span class="kn">import</span> <span class="n">GenerationChunk</span>
@@ -179,7 +155,9 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <span class="k">def</span> <span class="nf">_get_verbosity</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">langchain</span><span class="o">.</span><span class="n">verbose</span>
+    <span class="kn">from</span> <span class="nn">langchain.globals</span> <span class="kn">import</span> <span class="n">get_verbose</span>
+
+    <span class="k">return</span> <span class="n">get_verbose</span><span class="p">()</span>
 
 
 <span class="nd">@functools</span><span class="o">.</span><span class="n">lru_cache</span>
@@ -188,7 +166,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_base_retry_decorator"><a class="viewcode-back" href="../../../llms/langchain.llms.base.create_base_retry_decorator.html#langchain.llms.base.create_base_retry_decorator">[docs]</a><span class="k">def</span> <span class="nf">create_base_retry_decorator</span><span class="p">(</span>
+<div class="viewcode-block" id="create_base_retry_decorator"><a class="viewcode-back" href="../../../llms/langchain.llms.base.create_base_retry_decorator.html#langchain.llms.promptlayer_openai.create_base_retry_decorator">[docs]</a><span class="k">def</span> <span class="nf">create_base_retry_decorator</span><span class="p">(</span>
     <span class="n">error_types</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
     <span class="n">max_retries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">run_manager</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
@@ -232,7 +210,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_prompts"><a class="viewcode-back" href="../../../llms/langchain.llms.base.get_prompts.html#langchain.llms.base.get_prompts">[docs]</a><span class="k">def</span> <span class="nf">get_prompts</span><span class="p">(</span>
+<div class="viewcode-block" id="get_prompts"><a class="viewcode-back" href="../../../llms/langchain.llms.base.get_prompts.html#langchain.llms.promptlayer_openai.get_prompts">[docs]</a><span class="k">def</span> <span class="nf">get_prompts</span><span class="p">(</span>
     <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">prompts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">],</span> <span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get prompts that are already cached.&quot;&quot;&quot;</span>
@@ -240,9 +218,10 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">missing_prompts</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">missing_prompt_idxs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">existing_prompts</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">llm_cache</span> <span class="o">=</span> <span class="n">get_llm_cache</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">prompt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prompts</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">langchain</span><span class="o">.</span><span class="n">llm_cache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cache_val</span> <span class="o">=</span> <span class="n">langchain</span><span class="o">.</span><span class="n">llm_cache</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">llm_cache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cache_val</span> <span class="o">=</span> <span class="n">llm_cache</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cache_val</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                 <span class="n">existing_prompts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cache_val</span>
             <span class="k">else</span><span class="p">:</span>
@@ -251,7 +230,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="k">return</span> <span class="n">existing_prompts</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">,</span> <span class="n">missing_prompt_idxs</span><span class="p">,</span> <span class="n">missing_prompts</span></div>
 
 
-<div class="viewcode-block" id="update_cache"><a class="viewcode-back" href="../../../llms/langchain.llms.base.update_cache.html#langchain.llms.base.update_cache">[docs]</a><span class="k">def</span> <span class="nf">update_cache</span><span class="p">(</span>
+<div class="viewcode-block" id="update_cache"><a class="viewcode-back" href="../../../llms/langchain.llms.base.update_cache.html#langchain.llms.promptlayer_openai.update_cache">[docs]</a><span class="k">def</span> <span class="nf">update_cache</span><span class="p">(</span>
     <span class="n">existing_prompts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">],</span>
     <span class="n">llm_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">missing_prompt_idxs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
@@ -259,16 +238,17 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">prompts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the cache and get the LLM output.&quot;&quot;&quot;</span>
+    <span class="n">llm_cache</span> <span class="o">=</span> <span class="n">get_llm_cache</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_results</span><span class="o">.</span><span class="n">generations</span><span class="p">):</span>
         <span class="n">existing_prompts</span><span class="p">[</span><span class="n">missing_prompt_idxs</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">result</span>
         <span class="n">prompt</span> <span class="o">=</span> <span class="n">prompts</span><span class="p">[</span><span class="n">missing_prompt_idxs</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
-        <span class="k">if</span> <span class="n">langchain</span><span class="o">.</span><span class="n">llm_cache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">langchain</span><span class="o">.</span><span class="n">llm_cache</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">llm_cache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">llm_cache</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">llm_string</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
     <span class="n">llm_output</span> <span class="o">=</span> <span class="n">new_results</span><span class="o">.</span><span class="n">llm_output</span>
     <span class="k">return</span> <span class="n">llm_output</span></div>
 
 
-<div class="viewcode-block" id="BaseLLM"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM">[docs]</a><span class="k">class</span> <span class="nc">BaseLLM</span><span class="p">(</span><span class="n">BaseLanguageModel</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseLLM"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM">[docs]</a><span class="k">class</span> <span class="nc">BaseLLM</span><span class="p">(</span><span class="n">BaseLanguageModel</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base LLM abstract interface.</span>
 
 <span class="sd">    It should take in a prompt and return a string.&quot;&quot;&quot;</span>
@@ -330,7 +310,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
                 <span class="s2">&quot;Must be a PromptValue, str, or list of BaseMessages.&quot;</span>
             <span class="p">)</span>
 
-<div class="viewcode-block" id="BaseLLM.invoke"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.invoke"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">input</span><span class="p">:</span> <span class="n">LanguageModelInput</span><span class="p">,</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -353,7 +333,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="o">.</span><span class="n">text</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseLLM.ainvoke"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.ainvoke">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">ainvoke</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.ainvoke"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.ainvoke">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">ainvoke</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">input</span><span class="p">:</span> <span class="n">LanguageModelInput</span><span class="p">,</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -361,12 +341,6 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">stop</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_agenerate</span> <span class="o">==</span> <span class="n">BaseLLM</span><span class="o">.</span><span class="n">_agenerate</span><span class="p">:</span>
-            <span class="c1"># model doesn&#39;t implement async invoke, so use default implementation</span>
-            <span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span>
-                <span class="kc">None</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">invoke</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="p">)</span>
-
         <span class="n">config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="n">llm_result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">agenerate_prompt</span><span class="p">(</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_input</span><span class="p">(</span><span class="nb">input</span><span class="p">)],</span>
@@ -379,7 +353,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">llm_result</span><span class="o">.</span><span class="n">generations</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span></div>
 
-<div class="viewcode-block" id="BaseLLM.batch"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.batch">[docs]</a>    <span class="k">def</span> <span class="nf">batch</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.batch"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.batch">[docs]</a>    <span class="k">def</span> <span class="nf">batch</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">inputs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">LanguageModelInput</span><span class="p">],</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -422,7 +396,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
                 <span class="p">)</span>
             <span class="p">]</span></div>
 
-<div class="viewcode-block" id="BaseLLM.abatch"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.abatch">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">abatch</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.abatch"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.abatch">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">abatch</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">inputs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">LanguageModelInput</span><span class="p">],</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -432,13 +406,6 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">inputs</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[]</span>
-
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_agenerate</span> <span class="o">==</span> <span class="n">BaseLLM</span><span class="o">.</span><span class="n">_agenerate</span><span class="p">:</span>
-            <span class="c1"># model doesn&#39;t implement async batch, so use default implementation</span>
-            <span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span>
-                <span class="kc">None</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">config</span>
-            <span class="p">)</span>
-
         <span class="n">config</span> <span class="o">=</span> <span class="n">get_config_list</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">))</span>
         <span class="n">max_concurrency</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_concurrency&quot;</span><span class="p">)</span>
 
@@ -469,7 +436,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
                 <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">abatch</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="p">]</span></div>
 
-<div class="viewcode-block" id="BaseLLM.stream"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.stream"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">input</span><span class="p">:</span> <span class="n">LanguageModelInput</span><span class="p">,</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -520,7 +487,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">run_manager</span><span class="o">.</span><span class="n">on_llm_end</span><span class="p">(</span><span class="n">LLMResult</span><span class="p">(</span><span class="n">generations</span><span class="o">=</span><span class="p">[[</span><span class="n">generation</span><span class="p">]]))</span></div>
 
-<div class="viewcode-block" id="BaseLLM.astream"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.astream">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">astream</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.astream"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.astream">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">astream</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">input</span><span class="p">:</span> <span class="n">LanguageModelInput</span><span class="p">,</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RunnableConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -591,7 +558,9 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LLMResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the LLM on the given prompts.&quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span>
+            <span class="kc">None</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_generate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">prompts</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">run_manager</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_stream</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -611,7 +580,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">GenerationChunk</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 
-<div class="viewcode-block" id="BaseLLM.generate_prompt"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.generate_prompt">[docs]</a>    <span class="k">def</span> <span class="nf">generate_prompt</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.generate_prompt"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.generate_prompt">[docs]</a>    <span class="k">def</span> <span class="nf">generate_prompt</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">prompts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PromptValue</span><span class="p">],</span>
         <span class="n">stop</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -621,7 +590,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">prompt_strings</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">prompts</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">prompt_strings</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseLLM.agenerate_prompt"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.agenerate_prompt">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">agenerate_prompt</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.agenerate_prompt"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.agenerate_prompt">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">agenerate_prompt</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">prompts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PromptValue</span><span class="p">],</span>
         <span class="n">stop</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -666,7 +635,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="p">]</span>
         <span class="k">return</span> <span class="n">output</span>
 
-<div class="viewcode-block" id="BaseLLM.generate"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.generate"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">prompts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">stop</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -751,7 +720,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">new_arg_supported</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_generate</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="s2">&quot;run_manager&quot;</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">langchain</span><span class="o">.</span><span class="n">llm_cache</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">disregard_cache</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">get_llm_cache</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">disregard_cache</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;Asked to cache, but no cache found at `langchain.cache`.&quot;</span>
@@ -839,7 +808,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="p">]</span>
         <span class="k">return</span> <span class="n">output</span>
 
-<div class="viewcode-block" id="BaseLLM.agenerate"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.agenerate">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">agenerate</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.agenerate"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.agenerate">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">agenerate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">prompts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">stop</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -915,7 +884,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">new_arg_supported</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_agenerate</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="s2">&quot;run_manager&quot;</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">langchain</span><span class="o">.</span><span class="n">llm_cache</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">disregard_cache</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">get_llm_cache</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">disregard_cache</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;Asked to cache, but no cache found at `langchain.cache`.&quot;</span>
@@ -970,7 +939,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">generations</span> <span class="o">=</span> <span class="p">[</span><span class="n">existing_prompts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prompts</span><span class="p">))]</span>
         <span class="k">return</span> <span class="n">LLMResult</span><span class="p">(</span><span class="n">generations</span><span class="o">=</span><span class="n">generations</span><span class="p">,</span> <span class="n">llm_output</span><span class="o">=</span><span class="n">llm_output</span><span class="p">,</span> <span class="n">run</span><span class="o">=</span><span class="n">run_info</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseLLM.__call__"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.__call__"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">stop</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1021,7 +990,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">generations</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
 
-<div class="viewcode-block" id="BaseLLM.predict"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.predict"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1030,7 +999,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="n">_stop</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">stop</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">_stop</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseLLM.predict_messages"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.predict_messages">[docs]</a>    <span class="k">def</span> <span class="nf">predict_messages</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.predict_messages"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.predict_messages">[docs]</a>    <span class="k">def</span> <span class="nf">predict_messages</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BaseMessage</span><span class="p">],</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1045,7 +1014,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">_stop</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">AIMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseLLM.apredict"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.apredict">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">apredict</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.apredict"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.apredict">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">apredict</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1054,7 +1023,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="n">_stop</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">stop</span><span class="p">)</span>
         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_async</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">_stop</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseLLM.apredict_messages"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.apredict_messages">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">apredict_messages</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseLLM.apredict_messages"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.apredict_messages">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">apredict_messages</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BaseMessage</span><span class="p">],</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1084,13 +1053,13 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="k">def</span> <span class="nf">_llm_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return type of llm.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BaseLLM.dict"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.dict">[docs]</a>    <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseLLM.dict"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.dict">[docs]</a>    <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a dictionary of the LLM.&quot;&quot;&quot;</span>
         <span class="n">starter_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_identifying_params</span><span class="p">)</span>
         <span class="n">starter_dict</span><span class="p">[</span><span class="s2">&quot;_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_llm_type</span>
         <span class="k">return</span> <span class="n">starter_dict</span></div>
 
-<div class="viewcode-block" id="BaseLLM.save"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.base.BaseLLM.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseLLM.save"><a class="viewcode-back" href="../../../llms/langchain.llms.base.BaseLLM.html#langchain.llms.promptlayer_openai.BaseLLM.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the LLM.</span>
 
 <span class="sd">        Args:</span>
@@ -1123,7 +1092,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2"> must be json or yaml&quot;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="LLM"><a class="viewcode-back" href="../../../llms/langchain.llms.base.LLM.html#langchain.llms.base.LLM">[docs]</a><span class="k">class</span> <span class="nc">LLM</span><span class="p">(</span><span class="n">BaseLLM</span><span class="p">):</span>
+<div class="viewcode-block" id="LLM"><a class="viewcode-back" href="../../../llms/langchain.llms.base.LLM.html#langchain.llms.promptlayer_openai.LLM">[docs]</a><span class="k">class</span> <span class="nc">LLM</span><span class="p">(</span><span class="n">BaseLLM</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base LLM abstract class.</span>
 
 <span class="sd">    The purpose of this class is to expose a simpler interface for working</span>
@@ -1148,7 +1117,9 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the LLM on the given prompt and input.&quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span>
+            <span class="kc">None</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">run_manager</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_generate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1177,12 +1148,6 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">run_manager</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AsyncCallbackManagerForLLMRun</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LLMResult</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_acall</span> <span class="o">==</span> <span class="n">LLM</span><span class="o">.</span><span class="n">_acall</span><span class="p">:</span>
-            <span class="c1"># model doesn&#39;t implement async call, so use default implementation</span>
-            <span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span>
-                <span class="kc">None</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_generate</span><span class="p">,</span> <span class="n">prompts</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">run_manager</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="p">)</span>
-
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the LLM on the given prompt and input.&quot;&quot;&quot;</span>
         <span class="n">generations</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">new_arg_supported</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_acall</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;run_manager&quot;</span><span class="p">)</span>
@@ -1200,7 +1165,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

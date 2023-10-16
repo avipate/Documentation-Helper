@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.vectorstores.singlestoredb.SingleStoreDB &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.vectorstores.singlestoredb.SingleStoreDB &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/vectorstores/langchain.vectorstores.singlestoredb.SingleStoreDB.html" />
 
@@ -24,30 +24,11 @@
   <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
 <script src="../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "vectorstores/langchain.vectorstores.singlestoredb.SingleStoreDB", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -95,12 +76,12 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div id="sk-sidebar-wrapper" class="border-right">
       <div class="sk-sidebar-toc-wrapper">
         <div class="btn-group w-100 mb-2" role="group" aria-label="rellinks">
-            <a href="langchain.vectorstores.scann.ScaNN.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="langchain.vectorstores.scann.ScaNN">Prev</a><a href="../api_reference.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="langchain API Reference">Up</a>
+            <a href="langchain.vectorstores.semadb.SemaDB.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="langchain.vectorstores.semadb.SemaDB">Prev</a><a href="../api_reference.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="langchain API Reference">Up</a>
             <a href="langchain.vectorstores.singlestoredb.SingleStoreDBRetriever.html" role="button" class="btn sk-btn-rellink py-1" sk-rellink-tooltip="langchain.vectorstores.singlestoredb.SingleStoreDBRetriever">Next</a>
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -130,7 +111,7 @@ optionally, the names of the table and the fields to use.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>embedding</strong> (<a class="reference internal" href="../schema/langchain.schema.embeddings.Embeddings.html#langchain.schema.embeddings.Embeddings" title="langchain.schema.embeddings.Embeddings"><em>Embeddings</em></a>) – A text embedding model.</p></li>
-<li><p><strong>distance_strategy</strong> (<a class="reference internal" href="langchain.vectorstores.pgvector.DistanceStrategy.html#langchain.vectorstores.pgvector.DistanceStrategy" title="langchain.vectorstores.pgvector.DistanceStrategy"><em>DistanceStrategy</em></a><em>, </em><em>optional</em>) – <p>Determines the strategy employed for calculating
+<li><p><strong>distance_strategy</strong> (<a class="reference internal" href="langchain.vectorstores.utils.DistanceStrategy.html#langchain.vectorstores.utils.DistanceStrategy" title="langchain.vectorstores.utils.DistanceStrategy"><em>DistanceStrategy</em></a><em>, </em><em>optional</em>) – <p>Determines the strategy employed for calculating
 the distance between vectors in the embedding space.
 Defaults to DOT_PRODUCT.
 Available options are:
@@ -277,61 +258,64 @@ results_type.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.add_texts" title="langchain.vectorstores.singlestoredb.SingleStoreDB.add_texts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_texts</span></code></a>(texts[, metadatas, embeddings])</p></td>
 <td><p>Add more texts to the vectorstore.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.afrom_documents" title="langchain.vectorstores.singlestoredb.SingleStoreDB.afrom_documents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">afrom_documents</span></code></a>(documents, embedding, **kwargs)</p></td>
-<td><p>Return VectorStore initialized from documents and embeddings.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.afrom_texts" title="langchain.vectorstores.singlestoredb.SingleStoreDB.afrom_texts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">afrom_texts</span></code></a>(texts, embedding[, metadatas])</p></td>
-<td><p>Return VectorStore initialized from texts and embeddings.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.amax_marginal_relevance_search" title="langchain.vectorstores.singlestoredb.SingleStoreDB.amax_marginal_relevance_search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">amax_marginal_relevance_search</span></code></a>(query[, k, ...])</p></td>
-<td><p>Return docs selected using the maximal marginal relevance.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.amax_marginal_relevance_search_by_vector" title="langchain.vectorstores.singlestoredb.SingleStoreDB.amax_marginal_relevance_search_by_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">amax_marginal_relevance_search_by_vector</span></code></a>(...)</p></td>
-<td><p>Return docs selected using the maximal marginal relevance.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.as_retriever" title="langchain.vectorstores.singlestoredb.SingleStoreDB.as_retriever"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_retriever</span></code></a>(**kwargs)</p></td>
-<td><p>Return VectorStoreRetriever initialized from this VectorStore.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.asearch" title="langchain.vectorstores.singlestoredb.SingleStoreDB.asearch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">asearch</span></code></a>(query, search_type, **kwargs)</p></td>
-<td><p>Return docs most similar to query using specified search type.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search" title="langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">asimilarity_search</span></code></a>(query[, k])</p></td>
-<td><p>Return docs most similar to query.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search_by_vector" title="langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search_by_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">asimilarity_search_by_vector</span></code></a>(embedding[, k])</p></td>
-<td><p>Return docs most similar to embedding vector.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search_with_relevance_scores" title="langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search_with_relevance_scores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">asimilarity_search_with_relevance_scores</span></code></a>(query)</p></td>
-<td><p>Return docs most similar to query.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.delete" title="langchain.vectorstores.singlestoredb.SingleStoreDB.delete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete</span></code></a>([ids])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.adelete" title="langchain.vectorstores.singlestoredb.SingleStoreDB.adelete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adelete</span></code></a>([ids])</p></td>
 <td><p>Delete by vector ID or other criteria.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.from_documents" title="langchain.vectorstores.singlestoredb.SingleStoreDB.from_documents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_documents</span></code></a>(documents, embedding, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.afrom_documents" title="langchain.vectorstores.singlestoredb.SingleStoreDB.afrom_documents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">afrom_documents</span></code></a>(documents, embedding, **kwargs)</p></td>
 <td><p>Return VectorStore initialized from documents and embeddings.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.from_texts" title="langchain.vectorstores.singlestoredb.SingleStoreDB.from_texts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_texts</span></code></a>(texts, embedding[, metadatas, ...])</p></td>
-<td><p>Create a SingleStoreDB vectorstore from raw documents. This is a user-friendly interface that:     1. Embeds documents. 2. Creates a new table for the embeddings in SingleStoreDB. 3. Adds the documents to the newly created table. This is intended to be a quick way to get started. .. rubric:: Example.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.afrom_texts" title="langchain.vectorstores.singlestoredb.SingleStoreDB.afrom_texts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">afrom_texts</span></code></a>(texts, embedding[, metadatas])</p></td>
+<td><p>Return VectorStore initialized from texts and embeddings.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.max_marginal_relevance_search" title="langchain.vectorstores.singlestoredb.SingleStoreDB.max_marginal_relevance_search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_marginal_relevance_search</span></code></a>(query[, k, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.amax_marginal_relevance_search" title="langchain.vectorstores.singlestoredb.SingleStoreDB.amax_marginal_relevance_search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">amax_marginal_relevance_search</span></code></a>(query[, k, ...])</p></td>
 <td><p>Return docs selected using the maximal marginal relevance.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.max_marginal_relevance_search_by_vector" title="langchain.vectorstores.singlestoredb.SingleStoreDB.max_marginal_relevance_search_by_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_marginal_relevance_search_by_vector</span></code></a>(...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.amax_marginal_relevance_search_by_vector" title="langchain.vectorstores.singlestoredb.SingleStoreDB.amax_marginal_relevance_search_by_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">amax_marginal_relevance_search_by_vector</span></code></a>(...)</p></td>
 <td><p>Return docs selected using the maximal marginal relevance.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.search" title="langchain.vectorstores.singlestoredb.SingleStoreDB.search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search</span></code></a>(query, search_type, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.as_retriever" title="langchain.vectorstores.singlestoredb.SingleStoreDB.as_retriever"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_retriever</span></code></a>(**kwargs)</p></td>
+<td><p>Return VectorStoreRetriever initialized from this VectorStore.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.asearch" title="langchain.vectorstores.singlestoredb.SingleStoreDB.asearch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">asearch</span></code></a>(query, search_type, **kwargs)</p></td>
 <td><p>Return docs most similar to query using specified search type.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search" title="langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">similarity_search</span></code></a>(query[, k, filter])</p></td>
-<td><p>Returns the most similar indexed documents to the query text.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search" title="langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">asimilarity_search</span></code></a>(query[, k])</p></td>
+<td><p>Return docs most similar to query.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_by_vector" title="langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_by_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">similarity_search_by_vector</span></code></a>(embedding[, k])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search_by_vector" title="langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search_by_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">asimilarity_search_by_vector</span></code></a>(embedding[, k])</p></td>
 <td><p>Return docs most similar to embedding vector.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_with_relevance_scores" title="langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_with_relevance_scores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">similarity_search_with_relevance_scores</span></code></a>(query)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search_with_relevance_scores" title="langchain.vectorstores.singlestoredb.SingleStoreDB.asimilarity_search_with_relevance_scores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">asimilarity_search_with_relevance_scores</span></code></a>(query)</p></td>
+<td><p>Return docs most similar to query.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.delete" title="langchain.vectorstores.singlestoredb.SingleStoreDB.delete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete</span></code></a>([ids])</p></td>
+<td><p>Delete by vector ID or other criteria.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.from_documents" title="langchain.vectorstores.singlestoredb.SingleStoreDB.from_documents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_documents</span></code></a>(documents, embedding, **kwargs)</p></td>
+<td><p>Return VectorStore initialized from documents and embeddings.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.from_texts" title="langchain.vectorstores.singlestoredb.SingleStoreDB.from_texts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_texts</span></code></a>(texts, embedding[, metadatas, ...])</p></td>
+<td><p>Create a SingleStoreDB vectorstore from raw documents. This is a user-friendly interface that:     1. Embeds documents. 2. Creates a new table for the embeddings in SingleStoreDB. 3. Adds the documents to the newly created table. This is intended to be a quick way to get started. .. rubric:: Example.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.max_marginal_relevance_search" title="langchain.vectorstores.singlestoredb.SingleStoreDB.max_marginal_relevance_search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_marginal_relevance_search</span></code></a>(query[, k, ...])</p></td>
+<td><p>Return docs selected using the maximal marginal relevance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.max_marginal_relevance_search_by_vector" title="langchain.vectorstores.singlestoredb.SingleStoreDB.max_marginal_relevance_search_by_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_marginal_relevance_search_by_vector</span></code></a>(...)</p></td>
+<td><p>Return docs selected using the maximal marginal relevance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.search" title="langchain.vectorstores.singlestoredb.SingleStoreDB.search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search</span></code></a>(query, search_type, **kwargs)</p></td>
+<td><p>Return docs most similar to query using specified search type.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search" title="langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">similarity_search</span></code></a>(query[, k, filter])</p></td>
+<td><p>Returns the most similar indexed documents to the query text.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_by_vector" title="langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_by_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">similarity_search_by_vector</span></code></a>(embedding[, k])</p></td>
+<td><p>Return docs most similar to embedding vector.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_with_relevance_scores" title="langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_with_relevance_scores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">similarity_search_with_relevance_scores</span></code></a>(query)</p></td>
 <td><p>Return docs and relevance scores in the range [0, 1].</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_with_score" title="langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_with_score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">similarity_search_with_score</span></code></a>(query[, k, filter])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_with_score" title="langchain.vectorstores.singlestoredb.SingleStoreDB.similarity_search_with_score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">similarity_search_with_score</span></code></a>(query[, k, filter])</p></td>
 <td><p>Return docs most similar to query.</p></td>
 </tr>
 </tbody>
@@ -344,7 +328,7 @@ results_type.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>embedding</strong> (<a class="reference internal" href="../schema/langchain.schema.embeddings.Embeddings.html#langchain.schema.embeddings.Embeddings" title="langchain.schema.embeddings.Embeddings"><em>Embeddings</em></a>) – A text embedding model.</p></li>
-<li><p><strong>distance_strategy</strong> (<a class="reference internal" href="langchain.vectorstores.pgvector.DistanceStrategy.html#langchain.vectorstores.pgvector.DistanceStrategy" title="langchain.vectorstores.pgvector.DistanceStrategy"><em>DistanceStrategy</em></a><em>, </em><em>optional</em>) – <p>Determines the strategy employed for calculating
+<li><p><strong>distance_strategy</strong> (<a class="reference internal" href="langchain.vectorstores.utils.DistanceStrategy.html#langchain.vectorstores.utils.DistanceStrategy" title="langchain.vectorstores.utils.DistanceStrategy"><em>DistanceStrategy</em></a><em>, </em><em>optional</em>) – <p>Determines the strategy employed for calculating
 the distance between vectors in the embedding space.
 Defaults to DOT_PRODUCT.
 Available options are:
@@ -512,6 +496,27 @@ embeddings. Defaults to None.</p></li>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="langchain.vectorstores.singlestoredb.SingleStoreDB.adelete">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adelete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#langchain.vectorstores.singlestoredb.SingleStoreDB.adelete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete by vector ID or other criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ids</strong> – List of ids to delete.</p></li>
+<li><p><strong>**kwargs</strong> – Other keyword arguments that subclasses might use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if deletion is successful,
+False otherwise, None if not implemented.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[bool]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -826,7 +831,7 @@ Defaults to None.</p></li>
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
           <a href="../_sources/vectorstores/langchain.vectorstores.singlestoredb.SingleStoreDB.rst.txt" rel="nofollow">Show this page source</a>
       </footer>
     </div>

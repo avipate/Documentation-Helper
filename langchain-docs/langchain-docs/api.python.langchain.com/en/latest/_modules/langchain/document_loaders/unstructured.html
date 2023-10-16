@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.document_loaders.unstructured &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.document_loaders.unstructured &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/document_loaders/unstructured.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
 <script src="../../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/document_loaders/unstructured", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -120,7 +101,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="kn">from</span> <span class="nn">langchain.document_loaders.base</span> <span class="kn">import</span> <span class="n">BaseLoader</span>
 
 
-<div class="viewcode-block" id="satisfies_min_unstructured_version"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.satisfies_min_unstructured_version.html#langchain.document_loaders.unstructured.satisfies_min_unstructured_version">[docs]</a><span class="k">def</span> <span class="nf">satisfies_min_unstructured_version</span><span class="p">(</span><span class="n">min_version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="satisfies_min_unstructured_version"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.satisfies_min_unstructured_version.html#langchain.document_loaders.s3_file.satisfies_min_unstructured_version">[docs]</a><span class="k">def</span> <span class="nf">satisfies_min_unstructured_version</span><span class="p">(</span><span class="n">min_version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the installed `Unstructured` version exceeds the minimum version</span>
 <span class="sd">    for the feature in question.&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">unstructured.__version__</span> <span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">__unstructured_version__</span>
@@ -137,7 +118,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="k">return</span> <span class="n">unstructured_version_tuple</span> <span class="o">&gt;=</span> <span class="n">min_version_tuple</span></div>
 
 
-<div class="viewcode-block" id="validate_unstructured_version"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.validate_unstructured_version.html#langchain.document_loaders.unstructured.validate_unstructured_version">[docs]</a><span class="k">def</span> <span class="nf">validate_unstructured_version</span><span class="p">(</span><span class="n">min_unstructured_version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="validate_unstructured_version"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.validate_unstructured_version.html#langchain.document_loaders.s3_file.validate_unstructured_version">[docs]</a><span class="k">def</span> <span class="nf">validate_unstructured_version</span><span class="p">(</span><span class="n">min_unstructured_version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Raise an error if the `Unstructured` version does not exceed the</span>
 <span class="sd">    specified minimum.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">satisfies_min_unstructured_version</span><span class="p">(</span><span class="n">min_unstructured_version</span><span class="p">):</span>
@@ -146,10 +127,10 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="UnstructuredBaseLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredBaseLoader.html#langchain.document_loaders.unstructured.UnstructuredBaseLoader">[docs]</a><span class="k">class</span> <span class="nc">UnstructuredBaseLoader</span><span class="p">(</span><span class="n">BaseLoader</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="UnstructuredBaseLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredBaseLoader.html#langchain.document_loaders.s3_file.UnstructuredBaseLoader">[docs]</a><span class="k">class</span> <span class="nc">UnstructuredBaseLoader</span><span class="p">(</span><span class="n">BaseLoader</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base Loader that uses `Unstructured`.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="UnstructuredBaseLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredBaseLoader.html#langchain.document_loaders.unstructured.UnstructuredBaseLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="UnstructuredBaseLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredBaseLoader.html#langchain.document_loaders.s3_file.UnstructuredBaseLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;single&quot;</span><span class="p">,</span>
         <span class="n">post_processors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -194,7 +175,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
                 <span class="n">element</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">post_processor</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">elements</span>
 
-<div class="viewcode-block" id="UnstructuredBaseLoader.load"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredBaseLoader.html#langchain.document_loaders.unstructured.UnstructuredBaseLoader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<div class="viewcode-block" id="UnstructuredBaseLoader.load"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredBaseLoader.html#langchain.document_loaders.s3_file.UnstructuredBaseLoader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Load file.&quot;&quot;&quot;</span>
         <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_elements</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_post_process_elements</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
@@ -243,7 +224,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="k">return</span> <span class="n">docs</span></div></div>
 
 
-<div class="viewcode-block" id="UnstructuredFileLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredFileLoader.html#langchain.document_loaders.unstructured.UnstructuredFileLoader">[docs]</a><span class="k">class</span> <span class="nc">UnstructuredFileLoader</span><span class="p">(</span><span class="n">UnstructuredBaseLoader</span><span class="p">):</span>
+<div class="viewcode-block" id="UnstructuredFileLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredFileLoader.html#langchain.document_loaders.s3_file.UnstructuredFileLoader">[docs]</a><span class="k">class</span> <span class="nc">UnstructuredFileLoader</span><span class="p">(</span><span class="n">UnstructuredBaseLoader</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load files using `Unstructured`.</span>
 
 <span class="sd">    The file loader uses the</span>
@@ -269,7 +250,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="sd">    https://unstructured-io.github.io/unstructured/bricks.html#partition</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="UnstructuredFileLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredFileLoader.html#langchain.document_loaders.unstructured.UnstructuredFileLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="UnstructuredFileLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredFileLoader.html#langchain.document_loaders.s3_file.UnstructuredFileLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
         <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;single&quot;</span><span class="p">,</span>
@@ -288,7 +269,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="get_elements_from_api"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.get_elements_from_api.html#langchain.document_loaders.unstructured.get_elements_from_api">[docs]</a><span class="k">def</span> <span class="nf">get_elements_from_api</span><span class="p">(</span>
+<div class="viewcode-block" id="get_elements_from_api"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.get_elements_from_api.html#langchain.document_loaders.s3_file.get_elements_from_api">[docs]</a><span class="k">def</span> <span class="nf">get_elements_from_api</span><span class="p">(</span>
     <span class="n">file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">IO</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">IO</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">api_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;https://api.unstructured.io/general/v0/general&quot;</span><span class="p">,</span>
@@ -324,7 +305,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="UnstructuredAPIFileLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredAPIFileLoader.html#langchain.document_loaders.unstructured.UnstructuredAPIFileLoader">[docs]</a><span class="k">class</span> <span class="nc">UnstructuredAPIFileLoader</span><span class="p">(</span><span class="n">UnstructuredFileLoader</span><span class="p">):</span>
+<div class="viewcode-block" id="UnstructuredAPIFileLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredAPIFileLoader.html#langchain.document_loaders.s3_file.UnstructuredAPIFileLoader">[docs]</a><span class="k">class</span> <span class="nc">UnstructuredAPIFileLoader</span><span class="p">(</span><span class="n">UnstructuredFileLoader</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load files using `Unstructured` API.</span>
 
 <span class="sd">    By default, the loader makes a call to the hosted Unstructured API.</span>
@@ -356,7 +337,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="sd">    https://github.com/Unstructured-IO/unstructured-api</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="UnstructuredAPIFileLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredAPIFileLoader.html#langchain.document_loaders.unstructured.UnstructuredAPIFileLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="UnstructuredAPIFileLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredAPIFileLoader.html#langchain.document_loaders.s3_file.UnstructuredAPIFileLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;single&quot;</span><span class="p">,</span>
@@ -385,7 +366,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="UnstructuredFileIOLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredFileIOLoader.html#langchain.document_loaders.unstructured.UnstructuredFileIOLoader">[docs]</a><span class="k">class</span> <span class="nc">UnstructuredFileIOLoader</span><span class="p">(</span><span class="n">UnstructuredBaseLoader</span><span class="p">):</span>
+<div class="viewcode-block" id="UnstructuredFileIOLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredFileIOLoader.html#langchain.document_loaders.s3_file.UnstructuredFileIOLoader">[docs]</a><span class="k">class</span> <span class="nc">UnstructuredFileIOLoader</span><span class="p">(</span><span class="n">UnstructuredBaseLoader</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load files using `Unstructured`.</span>
 
 <span class="sd">    The file loader</span>
@@ -413,7 +394,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="sd">    https://unstructured-io.github.io/unstructured/bricks.html#partition</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="UnstructuredFileIOLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredFileIOLoader.html#langchain.document_loaders.unstructured.UnstructuredFileIOLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="UnstructuredFileIOLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredFileIOLoader.html#langchain.document_loaders.s3_file.UnstructuredFileIOLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">IO</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">IO</span><span class="p">]],</span>
         <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;single&quot;</span><span class="p">,</span>
@@ -432,7 +413,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="k">return</span> <span class="p">{}</span></div>
 
 
-<div class="viewcode-block" id="UnstructuredAPIFileIOLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredAPIFileIOLoader.html#langchain.document_loaders.unstructured.UnstructuredAPIFileIOLoader">[docs]</a><span class="k">class</span> <span class="nc">UnstructuredAPIFileIOLoader</span><span class="p">(</span><span class="n">UnstructuredFileIOLoader</span><span class="p">):</span>
+<div class="viewcode-block" id="UnstructuredAPIFileIOLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredAPIFileIOLoader.html#langchain.document_loaders.s3_file.UnstructuredAPIFileIOLoader">[docs]</a><span class="k">class</span> <span class="nc">UnstructuredAPIFileIOLoader</span><span class="p">(</span><span class="n">UnstructuredFileIOLoader</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load files using `Unstructured` API.</span>
 
 <span class="sd">    By default, the loader makes a call to the hosted Unstructured API.</span>
@@ -465,7 +446,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="sd">    https://github.com/Unstructured-IO/unstructured-api</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="UnstructuredAPIFileIOLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredAPIFileIOLoader.html#langchain.document_loaders.unstructured.UnstructuredAPIFileIOLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="UnstructuredAPIFileIOLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.unstructured.UnstructuredAPIFileIOLoader.html#langchain.document_loaders.s3_file.UnstructuredAPIFileIOLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">IO</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">IO</span><span class="p">]],</span>
         <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;single&quot;</span><span class="p">,</span>
@@ -498,7 +479,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

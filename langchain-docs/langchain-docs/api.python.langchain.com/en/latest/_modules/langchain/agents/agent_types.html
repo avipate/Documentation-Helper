@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.agents.agent_types &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.agents.agent_types &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/agents/agent_types.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
 <script src="../../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/agents/agent_types", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -111,22 +92,52 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
       <div class="sk-page-content container-fluid body px-md-3" role="main">
         
   <h1>Source code for langchain.agents.agent_types</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span></span><span class="sd">&quot;&quot;&quot;Module definitions of agent types together with corresponding agents.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
 
 <div class="viewcode-block" id="AgentType"><a class="viewcode-back" href="../../../agents/langchain.agents.agent_types.AgentType.html#langchain.agents.agent_types.AgentType">[docs]</a><span class="k">class</span> <span class="nc">AgentType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enumerator with the Agent types.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An enum for agent types.</span>
+
+<span class="sd">    See documentation: https://python.langchain.com/docs/modules/agents/agent_types/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">ZERO_SHOT_REACT_DESCRIPTION</span> <span class="o">=</span> <span class="s2">&quot;zero-shot-react-description&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A zero shot agent that does a reasoning step before acting.&quot;&quot;&quot;</span>
+
     <span class="n">REACT_DOCSTORE</span> <span class="o">=</span> <span class="s2">&quot;react-docstore&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A zero shot agent that does a reasoning step before acting.</span>
+<span class="sd">    </span>
+<span class="sd">    This agent has access to a document store that allows it to look up </span>
+<span class="sd">    relevant information to answering the question.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">SELF_ASK_WITH_SEARCH</span> <span class="o">=</span> <span class="s2">&quot;self-ask-with-search&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An agent that breaks down a complex question into a series of simpler questions.</span>
+<span class="sd">    </span>
+<span class="sd">    This agent uses a search tool to look up answers to the simpler questions</span>
+<span class="sd">    in order to answer the original complex question.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">CONVERSATIONAL_REACT_DESCRIPTION</span> <span class="o">=</span> <span class="s2">&quot;conversational-react-description&quot;</span>
     <span class="n">CHAT_ZERO_SHOT_REACT_DESCRIPTION</span> <span class="o">=</span> <span class="s2">&quot;chat-zero-shot-react-description&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A zero shot agent that does a reasoning step before acting.</span>
+<span class="sd">    </span>
+<span class="sd">    This agent is designed to be used in conjunction </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">CHAT_CONVERSATIONAL_REACT_DESCRIPTION</span> <span class="o">=</span> <span class="s2">&quot;chat-conversational-react-description&quot;</span>
+
     <span class="n">STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION</span> <span class="o">=</span> <span class="p">(</span>
         <span class="s2">&quot;structured-chat-zero-shot-react-description&quot;</span>
     <span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An zero-shot react agent optimized for chat models.</span>
+<span class="sd">    </span>
+<span class="sd">    This agent is capable of invoking tools that have multiple inputs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">OPENAI_FUNCTIONS</span> <span class="o">=</span> <span class="s2">&quot;openai-functions&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An agent optimized for using open AI functions.&quot;&quot;&quot;</span>
+
     <span class="n">OPENAI_MULTI_FUNCTIONS</span> <span class="o">=</span> <span class="s2">&quot;openai-multi-functions&quot;</span></div>
 </pre></div>
 
@@ -134,7 +145,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

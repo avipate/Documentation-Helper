@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.document_loaders.pdf &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.document_loaders.pdf &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/document_loaders/pdf.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
 <script src="../../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/document_loaders/pdf", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -248,9 +229,9 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="PyPDFLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyPDFLoader.html#langchain.document_loaders.pdf.PyPDFLoader">[docs]</a><span class="k">class</span> <span class="nc">PyPDFLoader</span><span class="p">(</span><span class="n">BasePDFLoader</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load `PDF using `pypdf` and chunks at character level.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load PDF using pypdf into list of documents.</span>
 
-<span class="sd">    Loader also stores page numbers in metadata.</span>
+<span class="sd">    Loader chunks by page and stores page numbers in metadata.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="PyPDFLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyPDFLoader.html#langchain.document_loaders.pdf.PyPDFLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -258,6 +239,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">password</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extract_images</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with a file path.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -266,7 +248,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
                 <span class="s2">&quot;pypdf package not found, please install it with &quot;</span> <span class="s2">&quot;`pip install pypdf`&quot;</span>
             <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">PyPDFParser</span><span class="p">(</span><span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">PyPDFParser</span><span class="p">(</span><span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span> <span class="n">extract_images</span><span class="o">=</span><span class="n">extract_images</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PyPDFLoader.load"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyPDFLoader.html#langchain.document_loaders.pdf.PyPDFLoader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
@@ -284,10 +266,16 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <div class="viewcode-block" id="PyPDFium2Loader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyPDFium2Loader.html#langchain.document_loaders.pdf.PyPDFium2Loader">[docs]</a><span class="k">class</span> <span class="nc">PyPDFium2Loader</span><span class="p">(</span><span class="n">BasePDFLoader</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load `PDF` using `pypdfium2` and chunks at character level.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PyPDFium2Loader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyPDFium2Loader.html#langchain.document_loaders.pdf.PyPDFium2Loader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="PyPDFium2Loader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyPDFium2Loader.html#langchain.document_loaders.pdf.PyPDFium2Loader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extract_images</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with a file path.&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">PyPDFium2Parser</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">PyPDFium2Parser</span><span class="p">(</span><span class="n">extract_images</span><span class="o">=</span><span class="n">extract_images</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PyPDFium2Loader.load"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyPDFium2Loader.html#langchain.document_loaders.pdf.PyPDFium2Loader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Load given path as pages.&quot;&quot;&quot;</span>
@@ -314,12 +302,14 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">silent_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">load_hidden</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">extract_images</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">glob</span> <span class="o">=</span> <span class="n">glob</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load_hidden</span> <span class="o">=</span> <span class="n">load_hidden</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">recursive</span> <span class="o">=</span> <span class="n">recursive</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">silent_errors</span> <span class="o">=</span> <span class="n">silent_errors</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">silent_errors</span> <span class="o">=</span> <span class="n">silent_errors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extract_images</span> <span class="o">=</span> <span class="n">extract_images</span></div>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_is_visible</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -333,7 +323,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_visible</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_hidden</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">loader</span> <span class="o">=</span> <span class="n">PyPDFLoader</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                        <span class="n">loader</span> <span class="o">=</span> <span class="n">PyPDFLoader</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">extract_images</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">extract_images</span><span class="p">)</span>
                         <span class="n">sub_docs</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
                         <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">sub_docs</span><span class="p">:</span>
                             <span class="n">doc</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
@@ -349,7 +339,13 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <div class="viewcode-block" id="PDFMinerLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PDFMinerLoader.html#langchain.document_loaders.pdf.PDFMinerLoader">[docs]</a><span class="k">class</span> <span class="nc">PDFMinerLoader</span><span class="p">(</span><span class="n">BasePDFLoader</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load `PDF` files using `PDFMiner`.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PDFMinerLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PDFMinerLoader.html#langchain.document_loaders.pdf.PDFMinerLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PDFMinerLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PDFMinerLoader.html#langchain.document_loaders.pdf.PDFMinerLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extract_images</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with file path.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">pdfminer.high_level</span> <span class="kn">import</span> <span class="n">extract_text</span>  <span class="c1"># noqa:F401</span>
@@ -360,7 +356,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">PDFMinerParser</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">PDFMinerParser</span><span class="p">(</span><span class="n">extract_images</span><span class="o">=</span><span class="n">extract_images</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PDFMinerLoader.load"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PDFMinerLoader.html#langchain.document_loaders.pdf.PDFMinerLoader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Eagerly load the content.&quot;&quot;&quot;</span>
@@ -411,7 +407,14 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <div class="viewcode-block" id="PyMuPDFLoader"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyMuPDFLoader.html#langchain.document_loaders.pdf.PyMuPDFLoader">[docs]</a><span class="k">class</span> <span class="nc">PyMuPDFLoader</span><span class="p">(</span><span class="n">BasePDFLoader</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load `PDF` files using `PyMuPDF`.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PyMuPDFLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyMuPDFLoader.html#langchain.document_loaders.pdf.PyMuPDFLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="PyMuPDFLoader.__init__"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyMuPDFLoader.html#langchain.document_loaders.pdf.PyMuPDFLoader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extract_images</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with a file path.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">import</span> <span class="nn">fitz</span>  <span class="c1"># noqa:F401</span>
@@ -420,13 +423,22 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
                 <span class="s2">&quot;`PyMuPDF` package not found, please install it with &quot;</span>
                 <span class="s2">&quot;`pip install pymupdf`&quot;</span>
             <span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extract_images</span> <span class="o">=</span> <span class="n">extract_images</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span></div>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="PyMuPDFLoader.load"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyMuPDFLoader.html#langchain.document_loaders.pdf.PyMuPDFLoader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<div class="viewcode-block" id="PyMuPDFLoader.load"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PyMuPDFLoader.html#langchain.document_loaders.pdf.PyMuPDFLoader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Load file.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Received runtime arguments </span><span class="si">{</span><span class="n">kwargs</span><span class="si">}</span><span class="s2">. Passing runtime args to `load`&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; is deprecated. Please pass arguments during initialization instead.&quot;</span>
+            <span class="p">)</span>
 
-        <span class="n">parser</span> <span class="o">=</span> <span class="n">PyMuPDFParser</span><span class="p">(</span><span class="n">text_kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">text_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">text_kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">}</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">PyMuPDFParser</span><span class="p">(</span>
+            <span class="n">text_kwargs</span><span class="o">=</span><span class="n">text_kwargs</span><span class="p">,</span> <span class="n">extract_images</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">extract_images</span>
+        <span class="p">)</span>
         <span class="n">blob</span> <span class="o">=</span> <span class="n">Blob</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">blob</span><span class="p">)</span></div></div>
 
@@ -561,6 +573,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">text_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dedupe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extract_images</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with a file path.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -573,12 +586,17 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text_kwargs</span> <span class="o">=</span> <span class="n">text_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dedupe</span> <span class="o">=</span> <span class="n">dedupe</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dedupe</span> <span class="o">=</span> <span class="n">dedupe</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extract_images</span> <span class="o">=</span> <span class="n">extract_images</span></div>
 
 <div class="viewcode-block" id="PDFPlumberLoader.load"><a class="viewcode-back" href="../../../document_loaders/langchain.document_loaders.pdf.PDFPlumberLoader.html#langchain.document_loaders.pdf.PDFPlumberLoader.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Load file.&quot;&quot;&quot;</span>
 
-        <span class="n">parser</span> <span class="o">=</span> <span class="n">PDFPlumberParser</span><span class="p">(</span><span class="n">text_kwargs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_kwargs</span><span class="p">,</span> <span class="n">dedupe</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dedupe</span><span class="p">)</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">PDFPlumberParser</span><span class="p">(</span>
+            <span class="n">text_kwargs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_kwargs</span><span class="p">,</span>
+            <span class="n">dedupe</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dedupe</span><span class="p">,</span>
+            <span class="n">extract_images</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">extract_images</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">blob</span> <span class="o">=</span> <span class="n">Blob</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">blob</span><span class="p">)</span></div></div>
 
@@ -781,7 +799,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

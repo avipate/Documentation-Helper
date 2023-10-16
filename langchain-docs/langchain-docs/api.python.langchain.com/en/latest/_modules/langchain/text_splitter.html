@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.text_splitter &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.text_splitter &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/text_splitter.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
 <script src="../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/text_splitter", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -121,7 +102,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="sd">    BaseDocumentTransformer --&gt; TextSplitter --&gt; &lt;name&gt;TextSplitter  # Example: CharacterTextSplitter</span>
 <span class="sd">                                                 RecursiveCharacterTextSplitter --&gt;  &lt;name&gt;TextSplitter</span>
 
-<span class="sd">Note: **MarkdownHeaderTextSplitter** does not derive from TextSplitter.</span>
+<span class="sd">Note: **MarkdownHeaderTextSplitter** and **HTMLHeaderTextSplitter do not derive from TextSplitter.</span>
 
 
 <span class="sd">**Main helpers:**</span>
@@ -134,12 +115,16 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span><span class="p">,</span> <span class="n">StringIO</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">AbstractSet</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
@@ -158,6 +143,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">Union</span><span class="p">,</span>
     <span class="n">cast</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="kn">from</span> <span class="nn">langchain.docstore.document</span> <span class="kn">import</span> <span class="n">Document</span>
 <span class="kn">from</span> <span class="nn">langchain.schema</span> <span class="kn">import</span> <span class="n">BaseDocumentTransformer</span>
@@ -393,7 +380,9 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="bp">self</span><span class="p">,</span> <span class="n">documents</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Document</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Asynchronously transform a sequence of documents by splitting them.&quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span>
+            <span class="kc">None</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transform_documents</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">documents</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="CharacterTextSplitter"><a class="viewcode-back" href="../../text_splitter/langchain.text_splitter.CharacterTextSplitter.html#langchain.text_splitter.CharacterTextSplitter">[docs]</a><span class="k">class</span> <span class="nc">CharacterTextSplitter</span><span class="p">(</span><span class="n">TextSplitter</span><span class="p">):</span>
@@ -495,8 +484,22 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="n">header_stack</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">HeaderType</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">initial_metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
+        <span class="n">in_code_block</span> <span class="o">=</span> <span class="kc">False</span>
+
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
             <span class="n">stripped_line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">stripped_line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;```&quot;</span><span class="p">):</span>
+                <span class="c1"># code block in one row</span>
+                <span class="k">if</span> <span class="n">stripped_line</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;```&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">in_code_block</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">in_code_block</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">in_code_block</span>
+
+            <span class="k">if</span> <span class="n">in_code_block</span><span class="p">:</span>
+                <span class="n">current_content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stripped_line</span><span class="p">)</span>
+                <span class="k">continue</span>
+
             <span class="c1"># Check each line against each of the header types (e.g., #, ##)</span>
             <span class="k">for</span> <span class="n">sep</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers_to_split_on</span><span class="p">:</span>
                 <span class="c1"># Check if line starts with a header that we intend to split on</span>
@@ -576,14 +579,173 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="p">]</span></div></div>
 
 
+<div class="viewcode-block" id="ElementType"><a class="viewcode-back" href="../../text_splitter/langchain.text_splitter.ElementType.html#langchain.text_splitter.ElementType">[docs]</a><span class="k">class</span> <span class="nc">ElementType</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Element type as typed dict.&quot;&quot;&quot;</span>
+
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">xpath</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="HTMLHeaderTextSplitter"><a class="viewcode-back" href="../../text_splitter/langchain.text_splitter.HTMLHeaderTextSplitter.html#langchain.text_splitter.HTMLHeaderTextSplitter">[docs]</a><span class="k">class</span> <span class="nc">HTMLHeaderTextSplitter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Splitting HTML files based on specified headers.</span>
+<span class="sd">    Requires lxml package.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="HTMLHeaderTextSplitter.__init__"><a class="viewcode-back" href="../../text_splitter/langchain.text_splitter.HTMLHeaderTextSplitter.html#langchain.text_splitter.HTMLHeaderTextSplitter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">headers_to_split_on</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+        <span class="n">return_each_element</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new HTMLHeaderTextSplitter.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            headers_to_split_on: list of tuples of headers we want to track mapped to</span>
+<span class="sd">                (arbitrary) keys for metadata. Allowed header values: h1, h2, h3, h4,</span>
+<span class="sd">                h5, h6 e.g. [(&quot;h1&quot;, &quot;Header 1&quot;), (&quot;h2&quot;, &quot;Header 2)].</span>
+<span class="sd">            return_each_element: Return each element w/ associated headers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Output element-by-element or aggregated into chunks w/ common headers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">return_each_element</span> <span class="o">=</span> <span class="n">return_each_element</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers_to_split_on</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">headers_to_split_on</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="HTMLHeaderTextSplitter.aggregate_elements_to_chunks"><a class="viewcode-back" href="../../text_splitter/langchain.text_splitter.HTMLHeaderTextSplitter.html#langchain.text_splitter.HTMLHeaderTextSplitter.aggregate_elements_to_chunks">[docs]</a>    <span class="k">def</span> <span class="nf">aggregate_elements_to_chunks</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ElementType</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Combine elements with common metadata into chunks</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            elements: HTML element content with associated identifying info and metadata</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">aggregated_chunks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ElementType</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">aggregated_chunks</span>
+                <span class="ow">and</span> <span class="n">aggregated_chunks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;metadata&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">element</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">]</span>
+            <span class="p">):</span>
+                <span class="c1"># If the last element in the aggregated list</span>
+                <span class="c1"># has the same metadata as the current element,</span>
+                <span class="c1"># append the current content to the last element&#39;s content</span>
+                <span class="n">aggregated_chunks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;  </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">element</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Otherwise, append the current element to the aggregated list</span>
+                <span class="n">aggregated_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">],</span> <span class="n">metadata</span><span class="o">=</span><span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">aggregated_chunks</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="HTMLHeaderTextSplitter.split_text_from_url"><a class="viewcode-back" href="../../text_splitter/langchain.text_splitter.HTMLHeaderTextSplitter.html#langchain.text_splitter.HTMLHeaderTextSplitter.split_text_from_url">[docs]</a>    <span class="k">def</span> <span class="nf">split_text_from_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Split HTML from web URL</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            url: web URL</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_text_from_file</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="HTMLHeaderTextSplitter.split_text"><a class="viewcode-back" href="../../text_splitter/langchain.text_splitter.HTMLHeaderTextSplitter.html#langchain.text_splitter.HTMLHeaderTextSplitter.split_text">[docs]</a>    <span class="k">def</span> <span class="nf">split_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Split HTML text string</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text: HTML text</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_text_from_file</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">text</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="HTMLHeaderTextSplitter.split_text_from_file"><a class="viewcode-back" href="../../text_splitter/langchain.text_splitter.HTMLHeaderTextSplitter.html#langchain.text_splitter.HTMLHeaderTextSplitter.split_text_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">split_text_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Split HTML file</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file: HTML file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+        <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+                <span class="s2">&quot;Unable to import lxml, please install with `pip install lxml`.&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+        <span class="c1"># use lxml library to parse html document and return xml ElementTree</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">HTMLParser</span><span class="p">()</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span>
+
+        <span class="c1"># document transformation for &quot;structure-aware&quot; chunking is handled with xsl.</span>
+        <span class="c1"># see comments in html_chunks_with_headers.xslt for more detailed information.</span>
+        <span class="n">xslt_path</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+            <span class="o">/</span> <span class="s2">&quot;document_transformers/xsl/html_chunks_with_headers.xslt&quot;</span>
+        <span class="p">)</span>
+        <span class="n">xslt_tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xslt_path</span><span class="p">)</span>
+        <span class="n">transform</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">XSLT</span><span class="p">(</span><span class="n">xslt_tree</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+        <span class="n">result_dom</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+
+        <span class="c1"># create filter and mapping for header metadata</span>
+        <span class="n">header_filter</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers_to_split_on</span><span class="p">]</span>
+        <span class="n">header_mapping</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers_to_split_on</span><span class="p">)</span>
+
+        <span class="c1"># map xhtml namespace prefix</span>
+        <span class="n">ns_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;h&quot;</span><span class="p">:</span> <span class="s2">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="p">}</span>
+
+        <span class="c1"># build list of elements from DOM</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">result_dom</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;*//*&quot;</span><span class="p">,</span> <span class="n">ns_map</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;*[@class=&#39;headers&#39;]&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
+                <span class="s2">&quot;*[@class=&#39;chunk&#39;]&quot;</span>
+            <span class="p">):</span>
+                <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">ElementType</span><span class="p">(</span>
+                        <span class="n">url</span><span class="o">=</span><span class="n">file</span><span class="p">,</span>
+                        <span class="n">xpath</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                            <span class="p">[</span>
+                                <span class="n">node</span><span class="o">.</span><span class="n">text</span>
+                                <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;*[@class=&#39;xpath&#39;]&quot;</span><span class="p">,</span> <span class="n">ns_map</span><span class="p">)</span>
+                            <span class="p">]</span>
+                        <span class="p">),</span>
+                        <span class="n">content</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                            <span class="p">[</span>
+                                <span class="n">node</span><span class="o">.</span><span class="n">text</span>
+                                <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;*[@class=&#39;chunk&#39;]&quot;</span><span class="p">,</span> <span class="n">ns_map</span><span class="p">)</span>
+                            <span class="p">]</span>
+                        <span class="p">),</span>
+                        <span class="n">metadata</span><span class="o">=</span><span class="p">{</span>
+                            <span class="c1"># Add text of specified headers to metadata using header</span>
+                            <span class="c1"># mapping.</span>
+                            <span class="n">header_mapping</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">tag</span><span class="p">]:</span> <span class="n">node</span><span class="o">.</span><span class="n">text</span>
+                            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">filter</span><span class="p">(</span>
+                                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">tag</span> <span class="ow">in</span> <span class="n">header_filter</span><span class="p">,</span>
+                                <span class="n">element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;*[@class=&#39;headers&#39;]/*&quot;</span><span class="p">,</span> <span class="n">ns_map</span><span class="p">),</span>
+                            <span class="p">)</span>
+                        <span class="p">},</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_each_element</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_elements_to_chunks</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span>
+                <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">],</span> <span class="n">metadata</span><span class="o">=</span><span class="n">chunk</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">elements</span>
+            <span class="p">]</span></div></div>
+
+
 <span class="c1"># should be in newer Python versions (3.10+)</span>
 <span class="c1"># @dataclass(frozen=True, kw_only=True, slots=True)</span>
 <div class="viewcode-block" id="Tokenizer"><a class="viewcode-back" href="../../text_splitter/langchain.text_splitter.Tokenizer.html#langchain.text_splitter.Tokenizer">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Tokenizer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tokenizer data class.&quot;&quot;&quot;</span>
+
     <span class="n">chunk_overlap</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Overlap in tokens between chunks&quot;&quot;&quot;</span>
     <span class="n">tokens_per_chunk</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Maximum number of tokens per chunk&quot;&quot;&quot;</span>
     <span class="n">decode</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="nb">str</span><span class="p">]</span>
-    <span class="n">encode</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span></div>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Function to decode a list of token ids to a string&quot;&quot;&quot;</span>
+    <span class="n">encode</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Function to encode a string to a list of token ids&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="split_text_on_tokens"><a class="viewcode-back" href="../../text_splitter/langchain.text_splitter.split_text_on_tokens.html#langchain.text_splitter.split_text_on_tokens">[docs]</a><span class="k">def</span> <span class="nf">split_text_on_tokens</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">:</span> <span class="n">Tokenizer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
@@ -727,6 +889,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">CPP</span> <span class="o">=</span> <span class="s2">&quot;cpp&quot;</span>
     <span class="n">GO</span> <span class="o">=</span> <span class="s2">&quot;go&quot;</span>
     <span class="n">JAVA</span> <span class="o">=</span> <span class="s2">&quot;java&quot;</span>
+    <span class="n">KOTLIN</span> <span class="o">=</span> <span class="s2">&quot;kotlin&quot;</span>
     <span class="n">JS</span> <span class="o">=</span> <span class="s2">&quot;js&quot;</span>
     <span class="n">TS</span> <span class="o">=</span> <span class="s2">&quot;ts&quot;</span>
     <span class="n">PHP</span> <span class="o">=</span> <span class="s2">&quot;php&quot;</span>
@@ -869,6 +1032,32 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
                 <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">while &quot;</span><span class="p">,</span>
                 <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">switch &quot;</span><span class="p">,</span>
                 <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">case &quot;</span><span class="p">,</span>
+                <span class="c1"># Split by the normal type of lines</span>
+                <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot; &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="k">elif</span> <span class="n">language</span> <span class="o">==</span> <span class="n">Language</span><span class="o">.</span><span class="n">KOTLIN</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span>
+                <span class="c1"># Split along class definitions</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">class &quot;</span><span class="p">,</span>
+                <span class="c1"># Split along method definitions</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">public &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">protected &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">private &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">internal &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">companion &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">fun &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">val &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">var &quot;</span><span class="p">,</span>
+                <span class="c1"># Split along control flow statements</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">if &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">for &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">while &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">when &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">case &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">else &quot;</span><span class="p">,</span>
                 <span class="c1"># Split by the normal type of lines</span>
                 <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -1298,7 +1487,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

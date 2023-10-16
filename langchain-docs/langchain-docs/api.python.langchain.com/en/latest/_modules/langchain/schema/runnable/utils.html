@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.schema.runnable.utils &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.schema.runnable.utils &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/schema/runnable/utils.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
 <script src="../../../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/schema/runnable/utils", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -118,6 +99,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">signature</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">AsyncIterable</span><span class="p">,</span>
@@ -126,8 +108,11 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="n">Dict</span><span class="p">,</span>
     <span class="n">Iterable</span><span class="p">,</span>
     <span class="n">List</span><span class="p">,</span>
+    <span class="n">Mapping</span><span class="p">,</span>
+    <span class="n">NamedTuple</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
     <span class="n">Protocol</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
     <span class="n">Set</span><span class="p">,</span>
     <span class="n">TypeVar</span><span class="p">,</span>
     <span class="n">Union</span><span class="p">,</span>
@@ -139,11 +124,20 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="gated_coro"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.gated_coro.html#langchain.schema.runnable.utils.gated_coro">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">gated_coro</span><span class="p">(</span><span class="n">semaphore</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Semaphore</span><span class="p">,</span> <span class="n">coro</span><span class="p">:</span> <span class="n">Coroutine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run a coroutine with a semaphore.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        semaphore: The semaphore to use.</span>
+<span class="sd">        coro: The coroutine to run.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The result of the coroutine.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">async</span> <span class="k">with</span> <span class="n">semaphore</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">await</span> <span class="n">coro</span></div>
 
 
 <div class="viewcode-block" id="gather_with_concurrency"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.gather_with_concurrency.html#langchain.schema.runnable.utils.gather_with_concurrency">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">gather_with_concurrency</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="o">*</span><span class="n">coros</span><span class="p">:</span> <span class="n">Coroutine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gather coroutines with a limit on the number of concurrent coroutines.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">n</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">coros</span><span class="p">)</span>
 
@@ -153,6 +147,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="accepts_run_manager"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.accepts_run_manager.html#langchain.schema.runnable.utils.accepts_run_manager">[docs]</a><span class="k">def</span> <span class="nf">accepts_run_manager</span><span class="p">(</span><span class="nb">callable</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a callable accepts a run_manager argument.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">signature</span><span class="p">(</span><span class="nb">callable</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;run_manager&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
@@ -160,6 +155,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="accepts_config"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.accepts_config.html#langchain.schema.runnable.utils.accepts_config">[docs]</a><span class="k">def</span> <span class="nf">accepts_config</span><span class="p">(</span><span class="nb">callable</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a callable accepts a config argument.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">signature</span><span class="p">(</span><span class="nb">callable</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;config&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
@@ -167,6 +163,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="IsLocalDict"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.IsLocalDict.html#langchain.schema.runnable.utils.IsLocalDict">[docs]</a><span class="k">class</span> <span class="nc">IsLocalDict</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">NodeVisitor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a name is a local dict.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="IsLocalDict.__init__"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.IsLocalDict.html#langchain.schema.runnable.utils.IsLocalDict.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="o">=</span> <span class="n">keys</span></div>
@@ -197,6 +195,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="IsFunctionArgDict"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.IsFunctionArgDict.html#langchain.schema.runnable.utils.IsFunctionArgDict">[docs]</a><span class="k">class</span> <span class="nc">IsFunctionArgDict</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">NodeVisitor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the first argument of a function is a dict.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="IsFunctionArgDict.__init__"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.IsFunctionArgDict.html#langchain.schema.runnable.utils.IsFunctionArgDict.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div>
 
@@ -214,17 +214,22 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="GetLambdaSource"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.GetLambdaSource.html#langchain.schema.runnable.utils.GetLambdaSource">[docs]</a><span class="k">class</span> <span class="nc">GetLambdaSource</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">NodeVisitor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the source code of a lambda function.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="GetLambdaSource.__init__"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.GetLambdaSource.html#langchain.schema.runnable.utils.GetLambdaSource.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the visitor.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span></div>
 
 <div class="viewcode-block" id="GetLambdaSource.visit_Lambda"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.GetLambdaSource.html#langchain.schema.runnable.utils.GetLambdaSource.visit_Lambda">[docs]</a>    <span class="k">def</span> <span class="nf">visit_Lambda</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">ast</span><span class="o">.</span><span class="n">Lambda</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Visit a lambda function.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ast</span><span class="p">,</span> <span class="s2">&quot;unparse&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">unparse</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="get_function_first_arg_dict_keys"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.get_function_first_arg_dict_keys.html#langchain.schema.runnable.utils.get_function_first_arg_dict_keys">[docs]</a><span class="k">def</span> <span class="nf">get_function_first_arg_dict_keys</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the keys of the first argument of a function if it is a dict.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">code</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">code</span><span class="p">))</span>
@@ -299,6 +304,8 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="SupportsAdd"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.SupportsAdd.html#langchain.schema.runnable.utils.SupportsAdd">[docs]</a><span class="k">class</span> <span class="nc">SupportsAdd</span><span class="p">(</span><span class="n">Protocol</span><span class="p">[</span><span class="n">_T_contra</span><span class="p">,</span> <span class="n">_T_co</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Protocol for objects that support addition.&quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__x</span><span class="p">:</span> <span class="n">_T_contra</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_T_co</span><span class="p">:</span>
         <span class="o">...</span></div>
 
@@ -307,6 +314,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="add"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.add.html#langchain.schema.runnable.utils.add">[docs]</a><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">addables</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Addable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Addable</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a sequence of addable objects together.&quot;&quot;&quot;</span>
     <span class="n">final</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">addables</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">final</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -317,6 +325,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 
 
 <div class="viewcode-block" id="aadd"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.aadd.html#langchain.schema.runnable.utils.aadd">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">aadd</span><span class="p">(</span><span class="n">addables</span><span class="p">:</span> <span class="n">AsyncIterable</span><span class="p">[</span><span class="n">Addable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Addable</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Asynchronously add a sequence of addable objects together.&quot;&quot;&quot;</span>
     <span class="n">final</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">async</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">addables</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">final</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -324,13 +333,82 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="k">else</span><span class="p">:</span>
             <span class="n">final</span> <span class="o">=</span> <span class="n">final</span> <span class="o">+</span> <span class="n">chunk</span>
     <span class="k">return</span> <span class="n">final</span></div>
+
+
+<div class="viewcode-block" id="ConfigurableField"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.ConfigurableField.html#langchain.schema.runnable.utils.ConfigurableField">[docs]</a><span class="k">class</span> <span class="nc">ConfigurableField</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A field that can be configured by the user.&quot;&quot;&quot;</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">annotation</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="ConfigurableFieldSingleOption"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.ConfigurableFieldSingleOption.html#langchain.schema.runnable.utils.ConfigurableFieldSingleOption">[docs]</a><span class="k">class</span> <span class="nc">ConfigurableFieldSingleOption</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A field that can be configured by the user with a default value.&quot;&quot;&quot;</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">options</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">default</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="ConfigurableFieldMultiOption"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.ConfigurableFieldMultiOption.html#langchain.schema.runnable.utils.ConfigurableFieldMultiOption">[docs]</a><span class="k">class</span> <span class="nc">ConfigurableFieldMultiOption</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A field that can be configured by the user with multiple default values.&quot;&quot;&quot;</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">options</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">default</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<span class="n">AnyConfigurableField</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="n">ConfigurableField</span><span class="p">,</span> <span class="n">ConfigurableFieldSingleOption</span><span class="p">,</span> <span class="n">ConfigurableFieldMultiOption</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="ConfigurableFieldSpec"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.ConfigurableFieldSpec.html#langchain.schema.runnable.utils.ConfigurableFieldSpec">[docs]</a><span class="k">class</span> <span class="nc">ConfigurableFieldSpec</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A field that can be configured by the user. It is a specification of a field.&quot;&quot;&quot;</span>
+
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+    <span class="n">default</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">annotation</span><span class="p">:</span> <span class="n">Any</span></div>
+
+
+<div class="viewcode-block" id="get_unique_config_specs"><a class="viewcode-back" href="../../../../schema/langchain.schema.runnable.utils.get_unique_config_specs.html#langchain.schema.runnable.utils.get_unique_config_specs">[docs]</a><span class="k">def</span> <span class="nf">get_unique_config_specs</span><span class="p">(</span>
+    <span class="n">specs</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ConfigurableFieldSpec</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ConfigurableFieldSpec</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the unique config specs from a sequence of config specs.&quot;&quot;&quot;</span>
+    <span class="n">grouped</span> <span class="o">=</span> <span class="n">groupby</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">specs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="n">unique</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ConfigurableFieldSpec</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">dupes</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">dupes</span><span class="p">)</span>
+        <span class="n">others</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dupes</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">others</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">unique</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">first</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">all</span><span class="p">(</span><span class="n">o</span> <span class="o">==</span> <span class="n">first</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">others</span><span class="p">):</span>
+            <span class="n">unique</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">first</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;RunnableSequence contains conflicting config specs&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;for </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="p">[</span><span class="n">first</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">others</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">unique</span></div>
 </pre></div>
 
       </div>
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>

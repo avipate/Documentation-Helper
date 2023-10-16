@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>langchain.llms.openai &mdash; 🦜🔗 LangChain 0.0.305</title>
+  <title>langchain.llms.openai &mdash; 🦜🔗 LangChain 0.0.314</title>
   
   <link rel="canonical" href="https://api.python.langchain.com/en/latest/_modules/langchain/llms/openai.html" />
 
@@ -23,30 +23,11 @@
   <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-  <link rel="stylesheet" href="/_/static/css/badge_only.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
 <script src="../../../_static/jquery.js"></script> 
-
-<!-- RTD Extra Head -->
-
-<link rel="stylesheet" href="/_/static/css/readthedocs-doc-embed.css" type="text/css" />
-
-<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/api_reference", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "_modules/langchain/llms/openai", "programming_language": "words", "project": "langchain", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "scikit-learn-modern", "user_analytics_code": "", "version": "latest"}</script>
-
-<!--
-Using this variable directly instead of using `JSON.parse` is deprecated.
-The READTHEDOCS_DATA global variable will be removed in the future.
--->
-<script type="text/javascript">
-READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
-</script>
-
-<script type="text/javascript" src="/_/static/javascript/readthedocs-analytics.js" async="async"></script>
-
-<!-- end RTD <extrahead> -->
-</head>
+<script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script></head>
 <body>
 
 
@@ -99,7 +80,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         </div>
         <div class="alert alert-warning p-1 mb-2" role="alert">
           <p class="text-center mb-0">
-          <strong>LangChain 0.0.305</strong><br/>
+          <strong>LangChain 0.0.314</strong><br/>
           </p>
         </div>
             <div class="sk-sidebar-toc">
@@ -147,7 +128,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="update_token_usage"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.update_token_usage.html#langchain.llms.openai.update_token_usage">[docs]</a><span class="k">def</span> <span class="nf">update_token_usage</span><span class="p">(</span>
+<div class="viewcode-block" id="update_token_usage"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.update_token_usage.html#langchain.llms.promptlayer_openai.update_token_usage">[docs]</a><span class="k">def</span> <span class="nf">update_token_usage</span><span class="p">(</span>
     <span class="n">keys</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">response</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">token_usage</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Update token usage.&quot;&quot;&quot;</span>
@@ -213,7 +194,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="p">)</span>
 
 
-<div class="viewcode-block" id="completion_with_retry"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.completion_with_retry.html#langchain.llms.openai.completion_with_retry">[docs]</a><span class="k">def</span> <span class="nf">completion_with_retry</span><span class="p">(</span>
+<div class="viewcode-block" id="completion_with_retry"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.completion_with_retry.html#langchain.llms.promptlayer_openai.completion_with_retry">[docs]</a><span class="k">def</span> <span class="nf">completion_with_retry</span><span class="p">(</span>
     <span class="n">llm</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">BaseOpenAI</span><span class="p">,</span> <span class="n">OpenAIChat</span><span class="p">],</span>
     <span class="n">run_manager</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">CallbackManagerForLLMRun</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -228,7 +209,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="k">return</span> <span class="n">_completion_with_retry</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="acompletion_with_retry"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.acompletion_with_retry.html#langchain.llms.openai.acompletion_with_retry">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">acompletion_with_retry</span><span class="p">(</span>
+<div class="viewcode-block" id="acompletion_with_retry"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.acompletion_with_retry.html#langchain.llms.promptlayer_openai.acompletion_with_retry">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">acompletion_with_retry</span><span class="p">(</span>
     <span class="n">llm</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">BaseOpenAI</span><span class="p">,</span> <span class="n">OpenAIChat</span><span class="p">],</span>
     <span class="n">run_manager</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">AsyncCallbackManagerForLLMRun</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
@@ -244,14 +225,28 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="k">return</span> <span class="k">await</span> <span class="n">_completion_with_retry</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="BaseOpenAI"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.openai.BaseOpenAI">[docs]</a><span class="k">class</span> <span class="nc">BaseOpenAI</span><span class="p">(</span><span class="n">BaseLLM</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseOpenAI"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.promptlayer_openai.BaseOpenAI">[docs]</a><span class="k">class</span> <span class="nc">BaseOpenAI</span><span class="p">(</span><span class="n">BaseLLM</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base OpenAI large language model class.&quot;&quot;&quot;</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">lc_secrets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;openai_api_key&quot;</span><span class="p">:</span> <span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">}</span>
 
-<div class="viewcode-block" id="BaseOpenAI.is_lc_serializable"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.openai.BaseOpenAI.is_lc_serializable">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">lc_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="n">attributes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">openai_api_base</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;openai_api_base&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">openai_api_base</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">openai_organization</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;openai_organization&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">openai_organization</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">openai_proxy</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;openai_proxy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">openai_proxy</span>
+
+        <span class="k">return</span> <span class="n">attributes</span>
+
+<div class="viewcode-block" id="BaseOpenAI.is_lc_serializable"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.promptlayer_openai.BaseOpenAI.is_lc_serializable">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">is_lc_serializable</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
@@ -553,7 +548,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
                 <span class="n">update_token_usage</span><span class="p">(</span><span class="n">_keys</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">token_usage</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_llm_result</span><span class="p">(</span><span class="n">choices</span><span class="p">,</span> <span class="n">prompts</span><span class="p">,</span> <span class="n">token_usage</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BaseOpenAI.get_sub_prompts"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.openai.BaseOpenAI.get_sub_prompts">[docs]</a>    <span class="k">def</span> <span class="nf">get_sub_prompts</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseOpenAI.get_sub_prompts"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.promptlayer_openai.BaseOpenAI.get_sub_prompts">[docs]</a>    <span class="k">def</span> <span class="nf">get_sub_prompts</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
         <span class="n">prompts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -576,7 +571,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="p">]</span>
         <span class="k">return</span> <span class="n">sub_prompts</span></div>
 
-<div class="viewcode-block" id="BaseOpenAI.create_llm_result"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.openai.BaseOpenAI.create_llm_result">[docs]</a>    <span class="k">def</span> <span class="nf">create_llm_result</span><span class="p">(</span>
+<div class="viewcode-block" id="BaseOpenAI.create_llm_result"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.promptlayer_openai.BaseOpenAI.create_llm_result">[docs]</a>    <span class="k">def</span> <span class="nf">create_llm_result</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">choices</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">prompts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">token_usage</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LLMResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the LLMResult from the choices and prompts.&quot;&quot;&quot;</span>
@@ -622,7 +617,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return type of llm.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;openai&quot;</span>
 
-<div class="viewcode-block" id="BaseOpenAI.get_token_ids"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.openai.BaseOpenAI.get_token_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="BaseOpenAI.get_token_ids"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.promptlayer_openai.BaseOpenAI.get_token_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the token IDs using the tiktoken package.&quot;&quot;&quot;</span>
         <span class="c1"># tiktoken NOT supported for Python &lt; 3.8</span>
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">:</span>
@@ -650,7 +645,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
             <span class="n">disallowed_special</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">disallowed_special</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseOpenAI.modelname_to_contextsize"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.openai.BaseOpenAI.modelname_to_contextsize">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="BaseOpenAI.modelname_to_contextsize"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.promptlayer_openai.BaseOpenAI.modelname_to_contextsize">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">modelname_to_contextsize</span><span class="p">(</span><span class="n">modelname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the maximum number of tokens possible to generate for a model.</span>
 
@@ -712,7 +707,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get max context size for this model.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelname_to_contextsize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BaseOpenAI.max_tokens_for_prompt"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.openai.BaseOpenAI.max_tokens_for_prompt">[docs]</a>    <span class="k">def</span> <span class="nf">max_tokens_for_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseOpenAI.max_tokens_for_prompt"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.BaseOpenAI.html#langchain.llms.promptlayer_openai.BaseOpenAI.max_tokens_for_prompt">[docs]</a>    <span class="k">def</span> <span class="nf">max_tokens_for_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the maximum number of tokens possible to generate for a prompt.</span>
 
 <span class="sd">        Args:</span>
@@ -730,7 +725,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_context_size</span> <span class="o">-</span> <span class="n">num_tokens</span></div></div>
 
 
-<div class="viewcode-block" id="OpenAI"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.OpenAI.html#langchain.llms.openai.OpenAI">[docs]</a><span class="k">class</span> <span class="nc">OpenAI</span><span class="p">(</span><span class="n">BaseOpenAI</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenAI"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.OpenAI.html#langchain.llms.promptlayer_openai.OpenAI">[docs]</a><span class="k">class</span> <span class="nc">OpenAI</span><span class="p">(</span><span class="n">BaseOpenAI</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;OpenAI large language models.</span>
 
 <span class="sd">    To use, you should have the ``openai`` python package installed, and the</span>
@@ -751,7 +746,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
         <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">},</span> <span class="o">**</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_invocation_params</span><span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="AzureOpenAI"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.AzureOpenAI.html#langchain.llms.openai.AzureOpenAI">[docs]</a><span class="k">class</span> <span class="nc">AzureOpenAI</span><span class="p">(</span><span class="n">BaseOpenAI</span><span class="p">):</span>
+<div class="viewcode-block" id="AzureOpenAI"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.AzureOpenAI.html#langchain.llms.promptlayer_openai.AzureOpenAI">[docs]</a><span class="k">class</span> <span class="nc">AzureOpenAI</span><span class="p">(</span><span class="n">BaseOpenAI</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Azure-specific OpenAI large language models.</span>
 
 <span class="sd">    To use, you should have the ``openai`` python package installed, and the</span>
@@ -803,10 +798,17 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_llm_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return type of llm.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;azure&quot;</span></div>
+        <span class="k">return</span> <span class="s2">&quot;azure&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">lc_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;openai_api_type&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">openai_api_type</span><span class="p">,</span>
+            <span class="s2">&quot;openai_api_version&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">openai_api_version</span><span class="p">,</span>
+        <span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="OpenAIChat"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.OpenAIChat.html#langchain.llms.openai.OpenAIChat">[docs]</a><span class="k">class</span> <span class="nc">OpenAIChat</span><span class="p">(</span><span class="n">BaseLLM</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenAIChat"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.OpenAIChat.html#langchain.llms.promptlayer_openai.OpenAIChat">[docs]</a><span class="k">class</span> <span class="nc">OpenAIChat</span><span class="p">(</span><span class="n">BaseLLM</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;OpenAI Chat large language models.</span>
 
 <span class="sd">    To use, you should have the ``openai`` python package installed, and the</span>
@@ -1042,7 +1044,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return type of llm.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;openai-chat&quot;</span>
 
-<div class="viewcode-block" id="OpenAIChat.get_token_ids"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.OpenAIChat.html#langchain.llms.openai.OpenAIChat.get_token_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="OpenAIChat.get_token_ids"><a class="viewcode-back" href="../../../llms/langchain.llms.openai.OpenAIChat.html#langchain.llms.promptlayer_openai.OpenAIChat.get_token_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the token IDs using the tiktoken package.&quot;&quot;&quot;</span>
         <span class="c1"># tiktoken NOT supported for Python &lt; 3.8</span>
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">:</span>
@@ -1068,7 +1070,7 @@ READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerH
     <div class="container">
       <footer class="sk-content-footer">
             &copy; 2023, Harrison Chase.
-          Last updated on Oct 01, 2023.
+          Last updated on Oct 15, 2023.
       </footer>
     </div>
   </div>
