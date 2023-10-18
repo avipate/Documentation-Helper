@@ -2,6 +2,7 @@
 ReadTheDocsLoader - Tool that helps to build documentation for GitHUb repositories"""
 import os
 from dotenv import load_dotenv, find_dotenv
+
 # Importing required libraries
 from langchain.document_loaders import ReadTheDocsLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -12,7 +13,10 @@ import warnings
 
 warnings.filterwarnings("ignore")
 load_dotenv(find_dotenv())
-pinecone.init(api_key=os.getenv("PINECONE_API_KEY"), environment=os.getenv("PINECONE_ENVIRONMENT_REGION"))
+pinecone.init(
+    api_key=os.getenv("PINECONE_API_KEY"),
+    environment=os.getenv("PINECONE_ENVIRONMENT_REGION"),
+)
 
 
 # Function to inject the files from the langchain directories
@@ -40,7 +44,9 @@ def inject_docs() -> None:
 
     # Embedding into OpenAI
     embeddings = OpenAIEmbeddings()
-    Pinecone.from_documents(documents=documents, embedding=embeddings, index_name="langchain-docs-index")
+    Pinecone.from_documents(
+        documents=documents, embedding=embeddings, index_name="langchain-docs-index"
+    )
     print("Added to Pinecone VectorStore vectors")
 
 
