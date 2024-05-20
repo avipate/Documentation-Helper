@@ -42,6 +42,7 @@ if prompt:
             doc.metadata["source"] for doc in generated_response["source_documents"]
         ]
 
+
         formatted_response = (
             f"{generated_response['result']} \n\n {create_sources_string(sources)}"
         )
